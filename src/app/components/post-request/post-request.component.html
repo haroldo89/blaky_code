@@ -1,0 +1,158 @@
+<script src="../../../assets/js/highlight.pack.js"></script>
+<link href="../../../assets/css/tomorrow-night-blue.css" rel="stylesheet" />
+<app-navbar></app-navbar>
+<div class="container pt-5">
+  <div class="row py-5">
+    <div class="row pb-4">
+      <div class="col-12 text-center">
+        <h4>CONSUMO DE REST WEB API SERVICE (HttpWebRequest)</h4>
+      </div>
+    </div>
+    <section class="col-12">
+      <h4>Requerimientos Previos</h4>
+      <p>Para implementar HttpWebRequest son necesarios conocimientos de <strong>ASP.NET</strong> y el siguiente software
+        instalado:
+      </p>
+      <ul>
+        <li>Visual Studio 2017 IDE</li>
+        <li>Gestor de paquetes Nuget</li>
+        <li>ASP.NET WEB API Framework y filosofía REST/API</li>
+      </ul>
+      <p><strong>RequestHttp.cs</strong></p>
+
+<pre>
+<code class="language-csharp hljs cs">
+  <span class="hljs-keyword">using</span> Newtonsoft.Json;
+  <span class="hljs-keyword">using</span> System;
+  <span class="hljs-keyword">using</span> System.Collections.Generic;
+  <span class="hljs-keyword">using</span> System.IO;
+  <span class="hljs-keyword">using</span> System.Linq;
+  <span class="hljs-keyword">using</span> System.Net;
+  <span class="hljs-keyword">using</span> System.Text;
+  <span class="hljs-keyword">using</span> System.Threading.Tasks;
+
+  <span class="hljs-keyword">namespace</span> <span class="hljs-title">Utilities</span>
+  {{'{'}}
+      <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;summary&gt;</span></span>
+      <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> Clase para consumir rest web api por metodo POST</span>
+      <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> con o sin autenticacion JWT</span>
+      <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;/summary&gt;</span></span>
+      <span class="hljs-keyword">public static class</span> <span class="hljs-keyword">class</span> <span class="hljs-title">RequestHttp</span>
+      {{'{'}}
+          <span class="hljs-keyword">public static</span> <span class="hljs-meta">T</span> PostRequest&lt;<span class="hljs-meta">T</span>&gt;(<span class="hljs-keyword">string</span> url, <span class="hljs-keyword">object</span> objeto, <span class="hljs-keyword">ref string</span> errorMessage)
+          {{'{'}}
+              <span class="hljs-meta">T</span> response = <span class="hljs-keyword">default</span>(<span class="hljs-meta">T</span>);
+              <span class="hljs-keyword">try</span>
+              {{'{'}}
+                  <span class="hljs-meta">ServicePointManager</span>.Expect100Continue = <span class="hljs-keyword">true</span>;
+                  <span class="hljs-meta">ServicePointManager</span>.SecurityProtocol = <span class="hljs-meta">SecurityProtocolType</span>.Ssl3;
+                  <span class="hljs-meta">ServicePointManager</span>.SecurityProtocol = <span class="hljs-meta">SecurityProtocolType</span>.Tls | <span class="hljs-meta">SecurityProtocolType</span>.Tls11 | <span class="hljs-meta">SecurityProtocolType</span>.Tls12;
+                  <span class="hljs-meta">ServicePointManager</span>.ServerCertificateValidationCallback = (snder, cert, chain, error) => <span class="hljs-keyword">true</span>;
+                  <span class="hljs-meta">HttpWebRequest</span> request;
+                  request = <span class="hljs-meta">WebRequest</span>.Create(url) as <span class="hljs-meta">HttpWebRequest</span>;
+                  request.Method = <span class="hljs-string">"POST"</span>;
+                  request.Proxy = ObtenerProxy();
+                  request.ContentType = <span class="hljs-string">"application/json"</span> ;
+                  <span class="hljs-keyword">string</span> json = <span class="hljs-meta">JsonConvert</span>.SerializeObject(objeto); <span class="hljs-comment">//pasamos de objeto a json</span>
+                  <span class="hljs-keyword">string</span> respuesta = SendRequest(request, json); <span class="hljs-comment">//Obtenemos la respuesta</span>
+                  response = <span class="hljs-meta">JsonConvert</span>.DeserializeObject&lt;<span class="hljs-meta">T</span>&gt;(respuesta); <span class="hljs-comment">//pasamos de json a objeto</span>
+              {{'}'}}
+              <span class="hljs-keyword">catch </span>(<span class="hljs-meta">WebException</span> exc)
+              {{'{'}}
+                  errorMessage = exc.Message;
+              {{'}'}}
+              <span class="hljs-keyword">return</span> response;
+          {{'}'}}
+
+          <span class="hljs-keyword">public static string</span> PostRequest(<span class="hljs-keyword">string</span> url, <span class="hljs-keyword">object</span> requestValue)
+          {{'{'}}
+              <span class="hljs-meta">ServicePointManager</span>.Expect100Continue = <span class="hljs-keyword">true</span>;
+              <span class="hljs-meta">ServicePointManager</span>.SecurityProtocol = <span class="hljs-meta">SecurityProtocolType</span>.Ssl3;
+              <span class="hljs-meta">ServicePointManager</span>.SecurityProtocol = <span class="hljs-meta">SecurityProtocolType</span>.Tls | <span class="hljs-meta">SecurityProtocolType</span>.Tls11 | <span class="hljs-meta">SecurityProtocolType</span>.Tls12;
+              <span class="hljs-meta">ServicePointManager</span>.ServerCertificateValidationCallback = (snder, cert, chain, error) => <span class="hljs-keyword">true</span>;
+              <span class="hljs-keyword">string</span> resultMessage = <span class="hljs-keyword">string</span>.Empty;
+              <span class="hljs-keyword">try</span>
+              {{'{'}}
+                  <span class="hljs-meta">HttpWebRequest</span> request;
+                  request = <span class="hljs-meta">WebRequest</span>.Create(url) as <span class="hljs-meta">HttpWebRequest</span>;
+                  request.Method = <span class="hljs-string">"POST"</span>;
+                  request.Proxy = ObtenerProxy();
+                  request.ContentType = <span class="hljs-string">"application/json"</span>;
+                  <span class="hljs-keyword">string</span> json = <span class="hljs-meta">JsonConvert</span>.SerializeObject(requestValue); <span class="hljs-comment">//pasamos de objeto a json</span>
+                  resultMessage = SendRequest(request, json); <span class="hljs-comment">//Obtenemos la respuesta</span>
+              {{'}'}}
+              <span class="hljs-keyword">catch</span> (<span class="hljs-meta">WebException</span> exc)
+              {{'{'}}
+                  resultMessage = exc.Message;
+              {{'}'}}
+              <span class="hljs-keyword">return</span> resultMessage;
+          {{'}'}}
+
+          <span class="hljs-keyword">public static</span> <span class="hljs-meta">T</span> PostRequest&lt;<span class="hljs-meta">T</span>&gt;(<span class="hljs-keyword">string</span> url, <span class="hljs-keyword">object</span> objeto, <span class="hljs-keyword">string</span> token, <span class="hljs-keyword">ref string</span> errorMessage)
+          {{'{'}}
+              <span class="hljs-meta">ServicePointManager</span>.Expect100Continue = <span class="hljs-keyword">true</span>;
+              <span class="hljs-meta">ServicePointManager</span>.SecurityProtocol = <span class="hljs-meta">SecurityProtocolType</span>.Ssl3;
+              <span class="hljs-meta">ServicePointManager</span>.SecurityProtocol = <span class="hljs-meta">SecurityProtocolType</span>.Tls | <span class="hljs-meta">SecurityProtocolType</span>.Tls11 | <span class="hljs-meta">SecurityProtocolType</span>.Tls12;
+              <span class="hljs-meta">ServicePointManager</span>.ServerCertificateValidationCallback = (snder, cert, chain, error) => <span class="hljs-keyword">true</span>;
+              <span class="hljs-meta">T</span> response = <span class="hljs-keyword">default</span>(<span class="hljs-meta">T</span>);
+              <span class="hljs-keyword">try</span>
+              {{'{'}}
+                  <span class="hljs-meta">HttpWebRequest</span> request;
+                  request = <span class="hljs-meta">WebRequest</span>.Create(url) as <span class="hljs-meta">HttpWebRequest</span>;
+                  request.Method = <span class="hljs-string">"POST"</span>;
+                  request.Proxy = ObtenerProxy();
+                  request.ContentType = <span class="hljs-string">"application/json"</span>;
+                  request.Headers.Add(<span class="hljs-string">"Authorization"</span>, <span class="hljs-string">"Bearer "</span> + token);
+                  <span class="hljs-keyword">string</span> json = <span class="hljs-meta">JsonConvert</span>.SerializeObject(objeto); <span class="hljs-comment">//pasamos de objeto a json</span>
+                  <span class="hljs-keyword">string</span> respuesta = SendRequest(request, json); <span class="hljs-comment">//Obtenemos la respuesta</span>
+                  response = <span class="hljs-meta">JsonConvert</span>.DeserializeObject&lt;<span class="hljs-meta">T</span>&gt;(respuesta); <span class="hljs-comment">//pasamos de json a objeto</span>
+              {{'}'}}
+              <span class="hljs-keyword">catch</span> (<span class="hljs-meta">WebException</span> exc)
+              {{'{'}}
+                  errorMessage = exc.Message;
+              {{'}'}}
+              <span class="hljs-keyword">return</span> response;
+          {{'}'}}
+
+          <span class="hljs-keyword">private static string</span> SendRequest(<span class="hljs-meta">HttpWebRequest</span> request, <span class="hljs-keyword">string</span> json)
+          {{'{'}}
+              <span class="hljs-meta">ServicePointManager</span>.Expect100Continue = <span class="hljs-keyword">true</span>;
+              <span class="hljs-meta">ServicePointManager</span>.SecurityProtocol = <span class="hljs-meta">SecurityProtocolType</span>.Ssl3;
+              <span class="hljs-meta">ServicePointManager</span>.SecurityProtocol = <span class="hljs-meta">SecurityProtocolType</span>.Tls | <span class="hljs-meta">SecurityProtocolType</span>.Tls11 | <span class="hljs-meta">SecurityProtocolType</span>.Tls12;
+              <span class="hljs-meta">ServicePointManager</span>.ServerCertificateValidationCallback = (snder, cert, chain, error) => <span class="hljs-keyword">true</span>;
+              <span class="hljs-keyword">string</span> resultMessage = <span class="hljs-keyword">string</span>.Empty;
+              <span class="hljs-keyword"></span>try
+              {{'{'}}
+                  <span class="hljs-keyword">using</span> (<span class="hljs-keyword">var</span> streamWriter = <span class="hljs-keyword">new</span> <span class="hljs-meta">StreamWriter</span>(request.GetRequestStream()))
+                  {{'{'}}
+                      streamWriter.Write(json);
+                      streamWriter.Flush();
+                      streamWriter.Close();
+                  {{'}'}}
+                  <span class="hljs-keyword">var</span> httpResponse = (<span class="hljs-meta">HttpWebResponse</span>)request.GetResponse();
+                  <span class="hljs-keyword">using</span> (<span class="hljs-keyword">var</span> streamReader = <span class="hljs-keyword">new</span> <span class="hljs-meta">StreamReader</span>(httpResponse.GetResponseStream()))
+                  {{'{'}}
+                      resultMessage = streamReader.ReadToEnd();
+                  {{'}'}}
+              {{'}'}}
+              <span class="hljs-keyword">catch</span> (<span class="hljs-meta">WebException</span> exc)
+              {{'{'}}
+                  resultMessage = <span class="hljs-keyword">string</span>.Empty;
+              {{'}'}}
+              <span class="hljs-keyword">return</span> resultMessage;
+          {{'}'}}
+
+          <span class="hljs-keyword">private static</span> <span class="hljs-meta">IWebProxy</span> ObtenerProxy()
+          {{'{'}}
+              <span class="hljs-meta">WebProxy</span> proxy = <span class="hljs-keyword">new</span> <span class="hljs-meta">WebProxy</span>(<span class="hljs-meta">ConfigSettings</span>.ServerProxyValue, <span class="hljs-keyword">true</span>);
+              proxy.Credentials = <span class="hljs-keyword">new</span> <span class="hljs-meta">NetworkCredential</span>(<span class="hljs-meta">ConfigSettings</span>.UserProxyValue, <span class="hljs-meta">ConfigSettings</span>.PasswordProxyValue, <span class="hljs-meta">ConfigSettings</span>.DomainProxyValue);
+              <span class="hljs-keyword">return</span> proxy;
+          {{'}'}}
+
+      {{'}'}}
+  {{'}'}}
+</code></pre>
+
+    </section>
+  </div>
+</div>

@@ -1,0 +1,342 @@
+<script src="../../../assets/js/highlight.pack.js"></script>
+<link href="../../../assets/css/tomorrow-night-blue.css" rel="stylesheet" />
+<app-navbar></app-navbar>
+
+<div class="container pt-5">
+  <div class="row py-5">
+    <div class="row pb-4">
+      <div class="col-12 text-center">
+        <h4>SQL NORMAS DE CODIFICACIÓN Y CONVENCIONES</h4>
+      </div>
+    </div>
+
+    <h5 class="col-12 px-0">
+      Tablas
+    </h5>
+    <P>
+      El nombre de la tabla debe ser en notación Pascal Case con longitud máxima de 30 caracteres y
+      no debe contener <span class="font-weight-bolder">underscore (_)</span>. Su nombre debe hacer referencia a un
+      sustantivo
+      y lo a un verbo. Importante si la tabla obedece a almacenamiento de datos Maestros o paramétricos debe iniciar
+      con el prefijo <span class="font-weight-bolder">P</span>.
+    </P>
+    <p>
+      Los nombres de las tablas deben ser en Inglés al igual que todos los objetos acá descritos.
+    </p>
+    <p>
+      Las columnas de una tabla deben llamarse en Singular y referenciando un sustantivo. Notación PascalCase
+    </p>
+
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Nombre Tabla</th>
+          <th scope="col">Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>PCitiesDepartments</td>
+          <td>Tabla paramétrica para el almacenamiento de las ciudades de un país</td>
+        </tr>
+        <tr>
+          <td>Employees</td>
+          <td>Tabla que almacena los datos de un empleado</td>
+        </tr>
+        <tr>
+          <td>EmployeeDelete</td>
+          <td><span class="text-danger">Forma incorrecta de nombrar una tabla.</span></td>
+        </tr>
+        <tr>
+          <td>
+            IdEmployee, FirstName, LastName
+          </td>
+          <td>
+            Columnas de una tabla
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr class="col-12 px-0" />
+
+    <h5 class="col-12 px-0">
+      Vistas
+    </h5>
+    <p>
+      Las Vistas deben ser nombradas en con prefijo <span class="font-weight-bolder">V</span>, en Pascal Case como
+      sucede en las tablas,
+      su nombre no debe exceder los 30 caracteres y no debe contener <span class="font-weight-bolder">underscore
+        (_)</span>.
+      Siempre debe hacer referencia al verbo <span class="font-weight-bolder">Select</span> y su nombre debe ser en
+      inglés.
+    </p>
+    <p>
+      La lógica de la vista debe tener presente el siguiente estándar:
+    </p>
+
+    <ul>
+      <li>
+        Las palabras reservadas deben ir en Mayúscula.
+      </li>
+      <li>
+        Los nombres de las tablas deben ser idénticos a su declaración
+      </li>
+      <li>
+        Código sangrado (identado)
+      </li>
+      <li>
+        Documentación en el encabezado de una vista(Created by, Date,Objective) Nombre
+      </li>
+    </ul>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Nombre Vista</th>
+          <th scope="col">Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>VSelectAllCities</td>
+          <td>Vista que retorna un listado de ciudades</td>
+        </tr>
+        <tr>
+          <td>VSelectAllEmployees</td>
+          <td>Vista que retorna todos los datos de los empleados</td>
+        </tr>
+        <tr>
+          <td>
+            SELECT * FROM Employees E INNER JOIN EmployeeDelete ED
+          </td>
+          <td><span class="text-danger">Query que se ejecuta en una Vista.</span></td>
+        </tr>
+        <tr>
+          <td>
+            Vw_All_Registration
+          </td>
+          <td>
+            Forma incorrecta de nombrar una Vista.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr class="col-12 px-0" />
+
+    <h5 class="col-12 px-0">
+      Procedimientos Almacenados
+    </h5>
+    <p>
+      Los procedimientos almacenados deben ser nombrados con el prefijo Sp seguido del Nombre el Pascal Case, no debe
+      contener
+      <span class="font-weight-bolder">underscore (_)</span>. Su nombre debe hacer referencia a la entidad que se
+      afecta
+      (sustantivo),
+      acompañado de la acción (Verbo).
+    </p>
+    <p>
+      Los procedimientos almacenados siempre deben tener parámetros de entrada y retornar <span
+        class="font-weight-bolder">siempre</span> un resultado,
+      como lo puede ser el resultado de un SELECT, o una variable de salida con datos diferente a NULL que pueda ser
+      controlada desde donde se ejecuta.
+    </p>
+    <p>
+      La lógica del procedimiento almacenado debe tener presente el siguiente estándar:
+    </p>
+
+    <ul>
+      <li>
+        Las palabras reservadas deben ir en Mayúscula.
+      </li>
+      <li>
+        Los nombres de las tablas deben ser idénticos a su declaración
+      </li>
+      <li>
+        Código sangrado (identado)
+      </li>
+      <li>
+        Documentación en el encabezado de una Procedimiento Almacenado (
+        <span class="font-weight-bolder">Created by, Date,Objective, Invoked From, Modified By, Description </span>)
+      </li>
+    </ul>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Nombre Procedimiento</th>
+          <th scope="col">Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>SpSelectAllCitiesByID</td>
+          <td>Vista que retorna un listado de ciudades</td>
+        </tr>
+        <tr>
+          <td>SPInsertEmployee</td>
+          <td>Vista que retorna todos los datos de los empleados</td>
+        </tr>
+        <tr>
+          <td>
+            Sp_All_Registration
+          </td>
+          <td><span class="text-danger">Query que se ejecuta en una Vista.</span></td>
+        </tr>
+        <tr>
+          <td>
+            Vw_All_Registration
+          </td>
+          <td>
+            <span class="text-danger">Forma incorrecta de nombrar un Procedimiento.</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <hr class="col-12 px-0" />
+    <h5 class="col-12 px-0">
+      Funciones
+    </h5>
+    <p>
+      Las Funciones deben ser nombradas en con prefijo Fn, en Pascal Case como sucede en las tablas,
+      su nombre no debe exceder los 30 caracteres y no debe contener underscore (_) . Siempre debe hacer referencia
+      al
+      verbo y su nombre debe ser en inglés. De igual manera, deben tener parámetros de entrada y retornar siempre un
+      resultado.
+    </p>
+    <p>
+      La lógica de la función debe tener presente el siguiente estándar:
+    </p>
+    <p>
+      La lógica del procedimiento almacenado debe tener presente el siguiente estándar:
+    </p>
+
+    <ul>
+      <li>Las palabras reservadas deben ir en Mayúscula.</li>
+      <li>Los nombres de las tablas deben ser idénticos a su declaración</li>
+      <li>Código sangrado (identado)</li>
+      <li>Documentación en el encabezado de una función(Created by, Date,Objective, Params)</li>
+    </ul>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Nombre Funcion</th>
+          <th scope="col">Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>FnSelectHolidays</td>
+          <td>
+            Función que retorna si un día es festivo
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Operación que se ejecuta en una Función.
+          </td>
+          <td>
+
+            SELECT @userLogin = IdUser FROM UserSystem WHERE UserLogin = @userLogin AND IdState = 1;
+            RETURN @userLogin;
+
+          </td>
+        </tr>
+        <tr>
+          <td>
+            FN_Eliminar_Espacios
+          </td>
+          <td><span class="text-danger">Forma incorrecta de nombrar una Función.</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <hr class="col-12 px-0" />
+    <h5 class="col-12 px-0">
+      Parametros de entrada y salida
+    </h5>
+    <p>
+      Los parámetros de entrada tanto para Procedimientos Almacenados como para las Funciones deben ser declarados
+      en
+      Camel Case sin <span class="font-weight-bolder">underscore (_)</span> .
+    </p>
+    <pre class="col-12 px-0">
+    <code class="armasm hljs">
+    <span class="hljs-built_in">DECLARE</span> <span class="hljs-title">@clientLastName</span> <span class="hljs-built_in">VARCHAR</span>(100);
+    <span class="hljs-built_in">DECLARE</span> <span class="hljs-title">@clientFirstName</span><span class="hljs-built_in">VARCHAR</span>(100);
+    </code>
+</pre>
+    <hr class="col-12 px-0" />
+    <h5 class="col-12 px-0">
+      Variables
+    </h5>
+    <p>
+      Las variables tanto para Procedimientos Almacenados como para las Funciones deben ser declarados en Pascal
+      Case
+      sin <span class="font-weight-bolder">underscore (_)</span> . Se debe
+      asegurar que toda variable declarada sea utilizada en la lógica del procedimiento o función. Debe declararse
+      una
+      variable por línea
+    </p>
+    <pre class="col-12 px-0">
+    <code class="armasm hljs">
+    <span class="hljs-built_in">DECLARE</span> <span class="hljs-title">@ClientLastName</span> <span class="hljs-built_in">VARCHAR</span>(100);
+    <span class="hljs-built_in">DECLARE</span> <span class="hljs-title">@ClientFirstName</span><span class="hljs-built_in">VARCHAR</span>(100);
+    </code>
+</pre>
+    <hr class="col-12 px-0" />
+    <h5 class="col-12 px-0">
+      Constantes
+    </h5>
+    <p>
+      Las constantes deben declararse al Inicio del Procedimiento o Función y deben ser declarados en Upper Case.
+      En
+      caso de ser
+      necesario utilice underscore (_). El nombre de la constante no debe contener verbos.
+    </p>
+    <p>
+      Se debe asegurar que toda constante declarada sea utilizada en la lógica del procedimiento o función. Debe
+      declararse una constante por línea.
+    </p>
+    <pre class="col-12 px-0">
+    <code class="armasm hljs">
+    <span class="hljs-built_in">DECLARE</span> <span class="hljs-title">@SERVICE_CODE</span> <span class="hljs-built_in">VARCHAR</span>(100);
+    <span class="hljs-built_in">SET</span> <span class="hljs-title">@SERVICE_CODE</span> = <span class="hljs-comment">'eb95bf9b-3809-4b93-af2e-9867f77c6eaf'</span>;
+    </code>
+</pre>
+    <hr class="col-12 px-0" />
+    <h5 class="col-12 px-0">
+      Triggers
+    </h5>
+    <p>
+      Los Triggers deben deben ser nombrados con el prefijo Tg seguido del Nombre el Pascal Case,
+      no debe contener <span class="font-weight-bolder">underscore (_)</span> . Su nombre debe hacer referencia a
+      la
+      entidad que se
+      afecta (sustantivo), acompañado de la acción (Verbo) AfterInsert/Delete/Update, InsteadOfDelete.
+    </p>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Nombre Trigger</th>
+          <th scope="col">Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>TgEmployeeAfterInsert</td>
+          <td>
+            Trigger que ejecuta una acción al insertar un registro de la tabla Employee
+          </td>
+        </tr>
+        <tr>
+          <td>
+            TgEmployeeInsteadOfDelete
+          </td>
+          <td>
+            Trigger que ejecuta una acción previa al eliminar un registro de la tabla Employee
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <hr class="col-12 px-0" />
+  </div>
+</div>

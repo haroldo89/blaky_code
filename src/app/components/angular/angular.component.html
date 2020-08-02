@@ -1,0 +1,271 @@
+<script src="../../../assets/js/highlight.pack.js"></script>
+<link href="../../../assets/css/tomorrow-night-blue.css" rel="stylesheet" />
+<app-navbar></app-navbar>
+
+<div class="container pt-5">
+  <div class="row pt-5">
+    <div class="row pb-4">
+      <div class="col-12 text-center">
+        <h4>ANGULAR NORMAS DE CODIFICACIÓN Y CONVENCIONES</h4>
+      </div>
+    </div>
+
+    <h5 class="col-12 px-0">
+      Creación de Componente
+    </h5>
+
+    <P>
+      Para la creación de componentes en el proyecto, debemos ejecutar la consola y acceder a la carpeta del proyecto. A
+      continuación, digite el siguiente comando:
+    </P>
+
+    <p class="col-12 px-0">
+      <span class="font-weight-bolder">ng generate component carpetaContenedora/nombreDelComponente</span>
+    </p>
+
+    <p>
+      forma abreviada
+    </p>
+
+    <p>
+      <span class="font-weight-bolder">ng g c carpetaContenedora/nombreDelComponente</span>
+    </p>
+
+    <pre class="col-12 px-0">
+    <code class="armasm hljs">
+    <span class="hljs-built_in">ng g c components/login</span> <span class="hljs-title">ClientActivity</span>
+    </code>
+</pre>
+    <hr class="col-12 px-0" />
+
+    <h5 class="col-12 px-0">
+      Creación de Servicios
+    </h5>
+
+    <P>
+      Para la creación de Servicios en el proyecto, debemos ejecutar la consola y acceder a la carpeta del proyecto. A
+      continuación, digite el siguiente comando:
+    </P>
+
+    <p class="">
+      <span class="font-weight-bolder ">ng generate service carpetaContenedora/nombreDelComponente</span>
+    </p>
+
+    <p>
+      forma abreviada
+    </p>
+
+    <p>
+      <span class="font-weight-bolder">ng g s carpetaContenedora/nombreDelComponente</span>
+    </p>
+
+    <pre class="col-12 px-0">
+    <code class="armasm hljs">
+    <span class="hljs-built_in">ng g s services/login</span> <span class="hljs-title">ClientActivity</span>
+    </code>
+</pre>
+    <hr class="col-12 px-0" />
+    <h5 class="col-12 px-0">
+      Creación de clases
+    </h5>
+
+    <p>
+      Para la creación de clases en el proyecto, debemos ir a la carpeta donde se almacenaran las clases y crear un
+      archivo
+      con la siguiente estructura:
+    </p>
+    <p>
+      Nombre: NombreDeLaClase.ts bajo PascalCase
+    </p>
+    <p>
+      Ejemplo: <span class="font-weight-bolder">UserLogged.ts</span>
+    </p>
+    <p>
+      Dentro del archivo:
+    </p>
+    <pre class="col-12 px-0">
+<code class="armasm hljs">
+    <span class="hljs-built_in">export class</span> <span class="hljs-symbol">UserLogged </span>{{'{'}}
+        id: <span class="hljs-symbol">number</span>;
+        name: <span class="hljs-symbol">string</span>;
+        username: <span class="hljs-symbol">string</span>;
+        password: <span class="hljs-symbol">string</span>;
+        securityLevel: <span class="hljs-symbol">number</span>;
+    {{'}'}}
+    </code>
+</pre>
+    <hr class="col-12 px-0" />
+    <h5 class="col-12 px-0">
+      Declaración De Variables En Componentes (Archivos Ts)
+    </h5>
+    <p>
+      En los archivos Ts, se deben declarar las variables dentro de la clase del
+      componente y antes del constructor en camelCase como se ve a continuación
+    </p>
+    <pre class="col-12 px-0">
+    <code class="armasm hljs">
+    <span class="hljs-built_in">export class</span> <span class="hljs-symbol">LoginComponent</span> <span class="hljs-built_in">implements OnInit</span> {{'{'}}
+        loginData: <span class="hljs-symbol">string</span>; //bajo camelCase
+        <span class="hljs-built_in">constructor()</span> {{'{}'}}
+            …
+            …
+            {{'}'}}
+    </code>
+</pre>
+    <hr class="col-12 px-0" />
+    <h5 class="col-12 px-0">
+      Manejo de Variables de entorno (pruebas y producción)
+    </h5>
+    <p>
+      Dentro de la carpeta scr/enviroment se almacenan 2 archivos uno para pruebas y el de producción, lo cual nos
+      permite
+      manejar
+      constantes diferentes tanto para producción como para pruebas, actualmente se maneja la variable “baseUrl” en la
+      cual
+      se almacena
+      el prefijo de la aplicación, para pruebas es un string vacio (dado que se está trabajando de forma local, en caso
+      de
+      querer trabajar
+      en dos puertos diferentes ejemplo front en 4200 y back en 60583, se debe llenar esta variable de la siguiente
+      manera: http://localhost:60583 ) y para producción es el nombre de la aplicación web en el servidor y se le
+      antepone
+      un '/'.
+    </p>
+    <p>
+      En enviroments.ts(pruebas desde el mismo puerto)
+    </p>
+    <pre class="col-12 px-0">
+<code class="armasm hljs">
+    <span class="hljs-built_in">export const</span><span>environment = </span>{{'{'}}
+        production: <span class="hljs-built_in">false</span>
+        baseUrl: <span class="hljs-variable">""</span> <span class="hljs-comment">/* URL Pruebas */</span>
+    {{'}'}}}
+    </code>
+</pre>
+    <p>
+      En enviroments.ts (pruebas para trabajar desde el puerto 4200 (ng serve))
+    </p>
+    <pre class="col-12 px-0">
+<code class="armasm hljs">
+    <span class="hljs-built_in">export const</span> environment = {{'{'}}
+        production: <span class="hljs-built_in">false</span>
+        baseUrl: <span class="hljs-variable">"http://localhost:60583"</span> <span class="hljs-comment">/* URL Desarrollo */</span>
+    {{'}'}}
+    </code>
+</pre>
+    <p>
+      En enviroments.prod.ts (pruebas para trabajar desde el puerto 4200 (ng serve))
+    </p>
+    <pre class="col-12 px-0">
+<code class="armasm hljs">
+    <span class="hljs-built_in">export const</span> environment = {{'{'}}
+        production: <span class="hljs-built_in">false</span>
+        baseUrl: <span class="hljs-variable">"/OfertaSugeridaWarriors"</span> <span class="hljs-comment">/* URL Desarrollo */</span>
+    {{'}'}}
+</code>
+</pre>
+    <hr class="col-12 px-0" />
+    <h5 class="col-12 px-0">
+      Compilar angular en pruebas
+    </h5>
+    <p>
+      Desde la consola y estando ubicado en la carpeta front-end del proyecto, ejecute el comando “ng build”,
+      este comando generara los archivos compilados los cuales se almacenaran en la carpeta “Front-End\Scripts\libs”:
+    </p>
+    <p>
+      Ejemplo:
+    </p>
+    <pre class="col-12 px-0">
+    <code class="armasm hljs">
+    <span class="hljs-built_in">ng build</span>
+    </code>
+</pre>
+    <p>
+      <ul>
+        <li>
+          <span>a la carpeta 'Front-End\Scripts\libs'.</span>
+        </li>
+        <li>
+          <span>Copie todos los archivos en esta.</span></li>
+        <li>
+          <span>Pegue los archivos en la carpeta Main del proyecto, reemplazando todos los archivos.</span>
+        </li>
+      </ul>
+
+      <p>
+        Con lo anterior si se ejecuta el proyecto se tomaran las actualizaciones, en caso de que este no sea el caso,
+        borre
+        la
+        cache y recargue la página.
+      </p>
+      <hr class="col-12 px-0" />
+      <h5 class="col-12 px-0">
+        Compilar angular en producción o servidor de pruebas
+      </h5>
+      <p>
+        Desde la consola y estando ubicado en la carpeta front-end del proyecto, ejecute el comando 'ng build --prod
+        --base-href /nombre del proyecto en el servidor/',
+        este comando generara los archivos compilados los cuales se almacenaran en la carpeta “Front-End\Scripts\libs”:
+      </p>
+      <p>
+        Ejemplo:
+      </p>
+      <pre class="col-12 px-0">
+    <code class="armasm hljs">
+    <span class="hljs-built_in">ng build</span> <span class="hljs-addition">--prod --base-href</span>  /OfertaSugeridaWarriors/
+    </code>
+</pre>
+      <hr class="col-12 px-0" />
+      <h5 class="col-12 px-0">
+        Auto cargar cambios
+      </h5>
+      <p>
+        Esta funcionalidad permite que cuando se actualice el proyecto en el servidor este sea actualizado en el cache
+        del
+        usuario final,
+        luego de cargar la pagina y para esto se debe correr el siguiente comando <span class="font-weight-bolder">luego
+          del
+          ng build y antes de pasar al servidor</span>:
+      </p>
+      <p>
+        Ejemplo:
+      </p>
+      <pre class="col-12 px-0">
+    <code class="armasm hljs">
+    <span class="hljs-built_in">npm run post-build</span>
+    </code>
+</pre>
+      <p>
+        El script anterior toma el valor del código posterior al nombre main del compilado y lo almacena en el archivo
+        version.json para luego en la carga de los datos si se encuentra que este valor ha cambiado recarga la pagina
+        en su ultima versión(actualiza cache).
+      </p>
+      <hr class="col-12 px-0" />
+      <h5 class="col-12 px-0">
+        Descargar librerías del proyecto
+      </h5>
+      <p>
+        Para lo anterior se recuerda que deben haber instalado npm, nodejs y angular cli, adicionalmente los comandos
+        npm no
+        son ejecutables desde Odin
+        se debe hacer desde la red de invitados. Tambien se debe tener en cuenta que para esta instalación el proyecto,
+        no
+        debe contar con la
+        carpeta node_modules, ni tampoco con el archivo package.lock (si están deben ser eliminados).
+      </p>
+      <p>
+        Desde la consola y estando ubicado en la carpeta front-end del proyecto, ejecute el comando 'npm install', este
+        comando toma todas las librerías
+        que requiere el proyecto y las instala en la carpeta node modules.
+      </p>
+      <p>
+        Ejemplo:
+      </p>
+      <pre class="col-12 px-0">
+    <code class="armasm hljs">
+    <span class="hljs-built_in">npm install</span>
+    </code>
+</pre>
+
+  </div>
+</div>

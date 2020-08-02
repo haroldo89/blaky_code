@@ -1,0 +1,231 @@
+
+<script src="../../../assets/js/highlight.pack.js"></script>
+
+<link href="../../../assets/css/tomorrow-night-blue.css" rel="stylesheet" />
+
+<app-navbar></app-navbar>
+
+<div class="container pt-5">
+  <div class="row py-5">
+      <div class="row pb-4">
+          <div class="col-12 text-center">
+              <h4>C# NORMAS DE CODIFICACIÓN Y CONVENCIONES DE NOMENCLATURA</h4>
+          </div>
+      </div>
+
+      <P>
+          <span class="font-weight-spaner">NORMAS GENERALES:</span> Toda la codificación realizada es decir creación de formularios, clases, propiedades, métodos, etc, es en inglés.
+      </P>
+
+      <p>
+          <span class="font-weight-spaner">CLASES:</span>Nombramiento en singular
+      </p>
+
+      <p>
+          <span class="font-weight-spaner">METODOS:</span>Debe iniciar con un verbo (acción).
+      </p>
+
+      <p>
+          <span class="font-weight-spaner">PROPIEDADES:</span>Nombramiento en singular, a menos que sea una colección.
+      </p>
+
+      <p>
+          <span class="font-weight-spaner">INSTANCIAS A CLASES:</span>En lo posible usar el patrón de singleton, y debe quedar como una propiedad de la clase desde la cual está siendo invocada.
+      </p>
+
+      <hr class="col-12 px-0" />
+
+      <h5 class="col-12 px-0">
+          <span class="do-success">HACER</span> Utilice Pascal Case para nombres de clases y métodos
+      </h5>
+      <pre class="col-12 px-0">
+      <code class="cs hljs">
+      <span class="hljs-keyword">public class</span> <span class="hljs-title">ClientActivity</span>
+      {{ '{' }}
+          <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ClearStatistics()</span></span>
+          {{ '{' }}
+              // ..
+          {{'}'}}
+
+          <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">CalculateStatistics()</span></span>
+          {{ '{' }}
+              // ..
+          {{'}'}}
+      {{'}'}}
+      </code>
+      </pre>
+      <hr class="col-12 px-0" />
+
+      <h5 class="col-12 px-0">
+          <span class="do-success">HACER</span> Utilice camelCasing para argumentos de método y variables locales
+      </h5>
+      <pre class="col-12 px-0">
+      <code class="cs hljs">
+      <span class="hljs-keyword">public class</span> <span class="hljs-title">ClientActivity</span>
+      {{ '{' }}
+          <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Add</span>(<span class="hljs-class">LogEvent</span> logEvent)</span>
+          {{ '{' }}
+              <span class="hljs-keyword">int</span><span class="hljs-title"> itemCount = logEvent.Items.</span><span class="hljs-keyword">Count</span>;
+          {{'}'}}
+      {{'}'}}
+      </code>
+      </pre>
+      <hr class="col-12 px-0" />
+
+      <h5 class="col-12 px-0">
+          <span class="do-warning">NO HACER</span> Utilizar la notación húngara o cualquier otra identificación de tipo en los identificadores
+      </h5>
+      <pre class="col-12 px-0">
+      <code class="cs hljs">
+      /// Correct
+      <span class="hljs-keyword">int</span><span class="hljs-title"> counter</span>;
+      <span class="hljs-keyword">string</span><span class="hljs-title"> name</span>;
+
+      /// Avoid
+      <span class="hljs-keyword">int</span><span class="hljs-title"> iCounter</span>;
+      <span class="hljs-keyword">string</span><span class="hljs-title"> strName</span>;
+      </code>
+      </pre>
+      <hr class="col-12 px-0" />
+
+      <h5 class="col-12 px-0">
+          <span class="do-warning">NO HACER</span> Usar mayúsculas para constantes o variables de sólo lectura
+      </h5>
+      <pre class="col-12 px-0">
+      <code class="cs hljs">
+      /// Correct
+      <span class="hljs-keyword">public static const string</span><span class="hljs-title"> ShippingType = </span><span class="hljs-meta-string">"DropShip"</span>;
+
+      /// Avoid
+      <span class="hljs-keyword">public static const string</span><span class="hljs-title"> SHIPPINGTYPE = </span><span class="hljs-meta-string">"DropShip"</span>;
+      </code>
+      </pre>
+      <hr class="col-12 px-0" />
+
+      <h5 class="col-12 px-0">
+          <span class="do-avoid">EVITAR</span> Usar las abreviaturas. Excepciones: abreviaturas comúnmente usadas como nombres, como Id, Xml, Ftp, Uri
+      </h5>
+      <pre class="col-12 px-0">
+      <code class="cs hljs">
+      /// Correct
+      <span class="hljs-class">UserGroup</span><span class="hljs-title"> userGroup</span>;
+      <span class="hljs-class">Assignment</span><span class="hljs-title"> assignment</span>;
+
+      /// Avoid
+      <span class="hljs-class">UserGroup</span><span class="hljs-title"> usrGrp;</span>;
+      <span class="hljs-class">Assignment</span><span class="hljs-title"> empAssignment;</span>;
+
+      /// Exception
+      <span class="hljs-class">CustomerId</span><span class="hljs-title"> iCounter</span>;
+      <span class="hljs-class">XmlDocument</span><span class="hljs-title"> xmlDocument</span>;
+      <span class="hljs-class">FtpHelper</span><span class="hljs-title"> ftpHelper</span>;
+      <span class="hljs-class">UriPart</span><span class="hljs-title"> uriPart</span>;
+      </code>
+      </pre>
+      <hr class="col-12 px-0" />
+
+      <h5 class="col-12 px-0">
+          <span class="do-warning">NO HACER</span> Utilizar raya al piso en los identificadores. Excepción: puede usarse variables estáticas privadas.
+      </h5>
+      <pre class="col-12 px-0">
+      <code class="cs hljs">
+      /// Correct
+      <span class="hljs-keyword">public</span> <span class="hljs-class">DateTime</span><span class="hljs-title"> clientAppointment;</span>
+      <span class="hljs-keyword">public</span> <span class="hljs-class">TimeSpan</span><span class="hljs-title"> timeLeft;</span>
+
+      /// Avoid
+      <span class="hljs-keyword">public</span> <span class="hljs-class">DateTime</span><span class="hljs-title"> client_Appointment;</span>
+      <span class="hljs-keyword">public</span> <span class="hljs-class">TimeSpan</span><span class="hljs-title"> time_Left;</span>
+
+      /// Exception
+      <span class="hljs-keyword">private</span> <span class="hljs-class">DateTime</span><span class="hljs-title"> _registrationDate;</span>
+      </code>
+      </pre>
+      <hr class="col-12 px-0" />
+
+      <h5 class="col-12 px-0">
+          <span class="do-success">HACER</span> Utilizar nombres de tipo predefinidos en lugar de nombres de tipo de sistema como Int16, Single, UInt64, etc.
+      </h5>
+      <pre class="col-12 px-0">
+      <code class="cs hljs">
+      /// Correct
+      <span class="hljs-keyword">string</span><span class="hljs-title"> firstName;</span>
+      <span class="hljs-keyword">int</span><span class="hljs-title"> lastIndex;</span>
+      <span class="hljs-keyword">bool</span><span class="hljs-title"> isSaved;</span>
+
+      /// Avoid
+      <span class="hljs-class">String</span><span class="hljs-title"> firstName;</span>
+      <span class="hljs-class">Int32</span><span class="hljs-title"> lastIndex;</span>
+      <span class="hljs-class">Boolean</span><span class="hljs-title"> isSaved;</span>
+      </code>
+      </pre>
+      <hr class="col-12 px-0" />
+
+      <h5 class="col-12 px-0">
+          <span class="do-success">HACER</span> Utilizar sustantivos para nombrar una clase.
+      </h5>
+      <pre class="col-12 px-0">
+      <code class="cs hljs">
+      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Employee</span></span>
+      {{ '{' }}
+
+      {{'}'}}
+
+      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BusinessLocation</span></span>
+      {{ '{' }}
+
+      {{'}'}}
+      </code>
+      </pre>
+      <hr class="col-12 px-0" />
+
+      <h5 class="col-12 px-0">
+          <span class="do-success">HACER</span> Utilizar en las interfaces el prefijo con la letra I. Los nombres de interfaz son sustantivos (frases) o adjetivos.
+      </h5>
+      <pre class="col-12 px-0">
+      <code class="cs hljs">
+      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">IShape</span></span>
+      {{ '{' }}
+
+      {{'}'}}
+
+      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">IShapeCollection</span></span>
+      {{ '{' }}
+
+      {{'}'}}
+
+      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">IGroupable</span></span>
+      {{ '{' }}
+
+      {{'}'}}
+      </code>
+      </pre>
+      <hr class="col-12 px-0" />
+
+      <h5 class="col-12 px-0">
+          <span class="do-success">HACER</span> Declarar todas las variables en la parte superior de la clase. En el siguiente orden, contantes, estáticas y propiedades.
+      </h5>
+      <pre class="col-12 px-0">
+      <code class="cs hljs">
+      // Correct
+      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Account</span></span>
+      {{ '{' }}
+          <span class="hljs-keyword">public static string</span> <span class="hljs-title"> BankName;</span>
+          <span class="hljs-keyword">public static decimal</span> <span class="hljs-title"> Reserves;</span>
+
+          <span class="hljs-keyword">public string </span><span class="hljs-title">Number</span> {{ '{' }} <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; {{'}'}}
+          <span class="hljs-keyword">protected </span><span class="hljs-class">DateTime</span> <span class="hljs-title">DateOpened</span> {{ '{' }} <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; {{'}'}}
+          <span class="hljs-keyword">private </span><span class="hljs-class">DateTime</span> <span class="hljs-title">DateClosed</span> {{ '{' }} <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; {{'}'}}
+          <span class="hljs-keyword">public decimal </span><span class="hljs-title">Balance</span> {{ '{' }} <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; {{'}'}}
+      {{'}'}}
+
+      // Constructor
+      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Account()</span></span>
+      {{ '{' }}
+          // ...
+      {{'}'}}
+      </code>
+      </pre>
+      <hr class="col-12 px-0" />
+  </div>
+</div>

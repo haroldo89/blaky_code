@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-success">
+  <a class="navbar-brand" href="#">doFactory</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+          <button mat-button class="nav-link" routerLink="/home">Inicio</button>
+      </li>
+      <li class="nav-item active dropdown">
+        <button mat-button [matMenuTriggerFor]="menuNormas" class="nav-link dropdown-toggle">NORMAS Y NOMENCLATURA</button>
+        <mat-menu #menuNormas="matMenu">
+          <button mat-menu-item class="dropdown-item" routerLink="/csharp" routerLinkActive="router-link-active">C# (CSHARP)</button>
+          <button mat-menu-item class="dropdown-item" routerLink="/angular" routerLinkActive="router-link-active">ANGULAR</button>
+          <button mat-menu-item class="dropdown-item" routerLink="/sql" routerLinkActive="router-link-active">SQL</button>
+        </mat-menu>
+      </li>
+      <li class="nav-item active dropdown">
+        <button mat-button [matMenuTriggerFor]="menuIntell" class="nav-link dropdown-toggle">DOCUMENTACION CODIGO</button>
+        <mat-menu #menuIntell="matMenu">
+          <button mat-menu-item class="dropdown-item" [routerLink]="['/intellisense']" routerLinkActive="router-link-active"  >INTELLISENSE</button>
+        </mat-menu>
+      </li>
+      <li class="nav-item active dropdown">
+          <button mat-button [matMenuTriggerFor]="menuUtil" class="nav-link dropdown-toggle">UTILIDADES</button>
+          <mat-menu #menuUtil="matMenu">
+            <button mat-menu-item class="dropdown-item" [routerLink]="['/jwt']" routerLinkActive="router-link-active">JWT</button>
+            <button mat-menu-item class="dropdown-item" [routerLink]="['/aes256']" routerLinkActive="router-link-active">AES-256</button>
+            <button mat-menu-item class="dropdown-item" [routerLink]="['/sqlEncript']" routerLinkActive="router-link-active">SQL-ENCRIPT</button>
+            <button mat-menu-item class="dropdown-item" [routerLink]="['/postrequest']" routerLinkActive="router-link-active">RequestHttp-PostRequest</button>
+          </mat-menu>
+        </li>
+        <li class="nav-item active dropdown">
+          <button mat-button [matMenuTriggerFor]="menuDevops" class="nav-link dropdown-toggle">DEVOPS</button>
+          <mat-menu #menuDevops="matMenu">
+            <button mat-menu-item class="dropdown-item" [routerLink]="['/devsecops']" routerLinkActive="router-link-active">INTRODUCCION</button>
+          </mat-menu>
+        </li>
+    </ul>
+    <!-- <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="item" aria-label="buscar">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">buscar</button>
+      </form> -->
+  </div>
+</nav>

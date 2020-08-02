@@ -1,0 +1,460 @@
+<script src="../../../assets/js/highlight.pack.js"></script>
+<link href="../../../assets/css/tomorrow-night-blue.css" rel="stylesheet" />
+<app-navbar></app-navbar>
+<div class="container pt-5">
+  <div class="row py-5">
+    <div class="row pb-4">
+      <div class="col-12 text-center">
+        <h4>IMPLEMENTACION JWT EN C# .NET</h4>
+      </div>
+    </div>
+    <section class="col-12">
+      <h4 id="requerimientosprevios">Requerimientos Previos</h4>
+      <p>Para implementar JWT son necesarios conocimientos de <strong>ASP.NET</strong> y el siguiente software
+        instalado:
+      </p>
+      <ul>
+        <li>Visual Studio 2017 IDE</li>
+        <li>Gestor de paquetes Nuget</li>
+        <li>Servidor web IIS Express</li>
+        <li>Web HTTP Debugger: Fiddler, Postman, etc</li>
+        <li>ASP.NET MVC y sistema de routing, atributos y filtros</li>
+        <li>ASP.NET WEB API Framework y filosofía REST/API</li>
+      </ul>
+      <h4 id="implementacindejwt">Implementación de JWT</h4>
+      <p>Entrando en materia, partiendo de la base que conocemos JWT y su ciclo de vida, vamos a realizar un tutorial
+        paso a
+        paso que sea fácil de entender creando un proyecto desde cero.</p>
+      <h5 id="descargandolalibreraoficialparatokens">Descargando la librería oficial para Tokens</h5>
+      <p>Ya podemos detener la ejecución en Visual Studio y cerrar el navegador porque vamos a escribir código en
+        nuestro
+        proyecto.</p>
+      <p>Antes de empezar, necesitamos la librería oficial: <em>System.IdentityModel.Tokens.Jwt</em> que instalaremos
+        mediante la consola Nuget:</p>
+      <p><em>PM&gt; Install-Package System.IdentityModel.Tokens.Jwt</em>
+        <p>A la hora de escribir este artículo, se han instalado los siguientes packages:</p>
+        <ul>
+          <li>Microsoft.IdentityModel.Tokens version 5.2.1 </li>
+          <li>Microsoft.IdentityModel.Tokens.Jwt version 5.2.1 </li>
+          <li>Microsoft.IdentityModel.Logging version 5.2.1 </li>
+        </ul>
+        <h5 id="creandolaestructurawebapi">Creando la estructura WebAPI</h5>
+        <p>Vamos a crear la estructura del API, se recomienda conocer la guía de buenas prácticas API REST y uso de
+          Visual
+          Studio.</p>
+        <p>En nuestro explorador de soluciones realizar los siguientes pasos:</p>
+        <ol>
+          <li>Sobre la carpeta controllers: botón derecho / agregar / controlador... </li>
+          <li>Se abrirá una nueva ventana de dialogo para elegir controlador. </li>
+          <li>Seleccionamos "Controlador WebApi 2 - en blanco". </li>
+          <li>Nos pedirá el nombre y lo llamaremos "LoginController". </li>
+          <li>Crear un segundo Controlador como los pasos 1,2,3. </li>
+          <li>Nos pedirá el nombre y lo llamaremos "CustomersController". </li>
+          <li>Dentro de carpeta Controller crear una nueva clase "TokenGenerator". </li>
+          <li>Dentro de carpeta Controller crear una nueva clase "TokenValidationHandler". </li>
+          <li>Dentro de carpeta Models crear una nueva clase "LoginRequest".</li>
+        </ol>
+        <p>En este punto, ya hemos creado las clases para nuestro proyecto, evidentemente vacías, como vemos en la
+          imagen:
+        </p>
+        <p>Recordar: los controladores WebAPI heredan de "ApiController" y los controladores MVC de "Controller" en .NET
+          Framework (ojo, en NET Core es diferente).</p>
+        <h5 id="implementacindelcdigo">Implementación del código</h5>
+        <p>Ahora, toca poner código a nuestras clases. Hay muchas formas de realizar esta implementación y esto es lo
+          que
+          más confusión genera entre los desarrolladores, en nuestra caso, trabajaremos con estas premisas:</p>
+        <ul>
+          <li>
+            <p>LoginRequest: clase donde recibiremos las credenciales del usuario.</p>
+          </li>
+          <li>
+            <p>IHttpActionResult: para las respuestas HTTP StatusCode al cliente siguiendo filosofía RESTful.</p>
+          </li>
+          <li>
+            <p>[AttributeRoutes]: para decorar las rutas de los controladores del API en cada acción.</p>
+          </li>
+          <li>
+            <p>[Authorize]:Decorador para autorizar peticiones válidas al API (necesitará un JWT válido).</p>
+          </li>
+          <li>
+            <p>[AllowAnonymous]: Decorador para permitir peticiones anónimas al API (no necesitará un JWT)</p>
+          </li>
+          <li>web.config: Definimos los settings necesarios para nuestro Token JWT.</li>
+        </ul>
+
+        <p><strong>LoginRequest.cs</strong></p>
+
+        <pre><code class="language-csharp hljs cs"><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">WebApiSegura</span>.<span class="hljs-title">Models</span>
+{{'{'}}
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">LoginRequest</span>
+  {{'{'}}
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Username {{'{'}} <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; {{'}'}}
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Password {{'{'}} <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; {{'}'}}
+  {{'}'}}
+{{'}'}}
+</code></pre>
+
+        <p><strong>LoginController.cs</strong></p>
+
+        <pre><code class="language-csharp hljs cs"><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Net;
+<span class="hljs-keyword">using</span> System.Threading;
+<span class="hljs-keyword">using</span> System.Web.Http;
+<span class="hljs-keyword">using</span> WebApiSegura.Models;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">WebApiSegura</span>.<span class="hljs-title">Controllers</span>
+{{'{'}}
+  <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;summary&gt;</span></span>
+  <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> login controller class for authenticate users</span>
+  <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;/summary&gt;</span></span>
+  [AllowAnonymous]
+  [RoutePrefix(<span class="hljs-string">"api/login"</span>)]
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">LoginController</span> : <span class="hljs-title">ApiController</span>
+  {{'{'}}
+    [HttpGet]
+    [Route(<span class="hljs-string">"echoping"</span>)]
+    <span class="hljs-function"><span class="hljs-keyword">public</span> IHttpActionResult <span class="hljs-title">EchoPing</span><span class="hljs-params">()</span>
+    </span>{{'{'}}
+        <span class="hljs-keyword">return</span> Ok(<span class="hljs-keyword">true</span>);
+    {{'}'}}
+
+    [HttpGet]
+    [Route(<span class="hljs-string">"echouser"</span>)]
+    <span class="hljs-function"><span class="hljs-keyword">public</span> IHttpActionResult <span class="hljs-title">EchoUser</span><span class="hljs-params">()</span>
+    </span>{{'{'}}
+        <span class="hljs-keyword">var</span> identity = Thread.CurrentPrincipal.Identity;
+        <span class="hljs-keyword">return</span> Ok($<span class="hljs-string">" IPrincipal-user: {{'{'}}identity.Name{{''}}} - IsAuthenticated: {{'{'}}identity.IsAuthenticated{{'}'}}"</span>);
+    {{'}'}}
+
+    [HttpPost]
+    [Route(<span class="hljs-string">"authenticate"</span>)]
+    <span class="hljs-function"><span class="hljs-keyword">public</span> IHttpActionResult <span class="hljs-title">Authenticate</span><span class="hljs-params">(LoginRequest login)</span>
+    </span>{{'{'}}
+        <span class="hljs-keyword">if</span> (login == <span class="hljs-keyword">null</span>)
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> HttpResponseException(HttpStatusCode.BadRequest);
+
+        <span class="hljs-comment">//TODO: Validate credentials Correctly, this code is only for demo !!</span>
+        <span class="hljs-keyword">bool</span> isCredentialValid = (login.Password == <span class="hljs-string">"123456"</span>);
+        <span class="hljs-keyword">if</span> (isCredentialValid)
+        {{'{'}}
+            <span class="hljs-keyword">var</span> token = TokenGenerator.GenerateTokenJwt(login.Username);
+            <span class="hljs-keyword">return</span> Ok(token);
+        {{'}'}}
+        <span class="hljs-keyword">else</span>
+        {{'{'}}
+            <span class="hljs-keyword">return</span> Unauthorized();
+        {{'}'}}
+    {{'}'}}
+  {{'}'}}
+{{'}'}}
+</code></pre>
+
+        <p><strong>CustomersController.cs</strong></p>
+
+        <pre><code class="language-csharp hljs cs"><span class="hljs-keyword">using</span> System.Web.Http;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">WebApiSegura</span>.<span class="hljs-title">Controllers</span>
+{{'{'}}
+  <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;summary&gt;</span></span>
+  <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> customer controller class for testing security token</span>
+  <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;/summary&gt;</span></span>
+  [Authorize]
+  [RoutePrefix(<span class="hljs-string">"api/customers"</span>)]
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">CustomersController</span> : <span class="hljs-title">ApiController</span>
+  {{'{'}}
+    [HttpGet]
+    <span class="hljs-function"><span class="hljs-keyword">public</span> IHttpActionResult <span class="hljs-title">GetId</span><span class="hljs-params">(<span class="hljs-keyword">int</span> id)</span>
+    </span>{{'{'}}
+        <span class="hljs-keyword">var</span> customerFake = <span class="hljs-string">"customer-fake"</span>;
+        <span class="hljs-keyword">return</span> Ok(customerFake);
+    {{'}'}}
+
+    [HttpGet]
+    <span class="hljs-function"><span class="hljs-keyword">public</span> IHttpActionResult <span class="hljs-title">GetAll</span><span class="hljs-params">()</span>
+    </span>{{'{'}}
+        <span class="hljs-keyword">var</span> customersFake = <span class="hljs-keyword">new</span> <span class="hljs-keyword">string</span>[] {{'{'}} <span class="hljs-string">"customer-1"</span>, <span class="hljs-string">"customer-2"</span>, <span class="hljs-string">"customer-3"</span> {{'}'}};
+        <span class="hljs-keyword">return</span> Ok(customersFake);
+    {{'}'}}
+  {{'}'}}
+{{'}'}}
+</code></pre>
+
+        <p><strong>TokenGenerator.cs</strong></p>
+
+        <pre><code class="language-csharp hljs cs"><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Configuration;
+<span class="hljs-keyword">using</span> System.Security.Claims;
+<span class="hljs-keyword">using</span> Microsoft.IdentityModel.Tokens;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">WebApiSegura</span>.<span class="hljs-title">Controllers</span>
+{{'{'}}
+  <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;summary&gt;</span></span>
+  <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> JWT Token generator class using "secret-key"</span>
+  <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> more info: https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html</span>
+  <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;/summary&gt;</span></span>
+  <span class="hljs-keyword">internal</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">TokenGenerator</span>
+  {{'{'}}
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GenerateTokenJwt</span><span class="hljs-params">(<span class="hljs-keyword">string</span> username)</span>
+    </span>{{'{'}}
+        <span class="hljs-comment">// appsetting for Token JWT</span>
+        <span class="hljs-keyword">var</span> secretKey = ConfigurationManager.AppSettings[<span class="hljs-string">"JWT_SECRET_KEY"</span>];
+        <span class="hljs-keyword">var</span> audienceToken = ConfigurationManager.AppSettings[<span class="hljs-string">"JWT_AUDIENCE_TOKEN"</span>];
+        <span class="hljs-keyword">var</span> issuerToken = ConfigurationManager.AppSettings[<span class="hljs-string">"JWT_ISSUER_TOKEN"</span>];
+        <span class="hljs-keyword">var</span> expireTime = ConfigurationManager.AppSettings[<span class="hljs-string">"JWT_EXPIRE_MINUTES"</span>];
+
+        <span class="hljs-keyword">var</span> securityKey = <span class="hljs-keyword">new</span> SymmetricSecurityKey(System.Text.Encoding.Default.GetBytes(secretKey));
+        <span class="hljs-keyword">var</span> signingCredentials = <span class="hljs-keyword">new</span> SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
+
+        <span class="hljs-comment">// create a claimsIdentity</span>
+        ClaimsIdentity claimsIdentity = <span class="hljs-keyword">new</span> ClaimsIdentity(<span class="hljs-keyword">new</span>[] {{'{'}} <span class="hljs-keyword">new</span> Claim(ClaimTypes.Name, username) {{'}'}});
+
+        <span class="hljs-comment">// create token to the user</span>
+        <span class="hljs-keyword">var</span> tokenHandler = <span class="hljs-keyword">new</span> System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
+        <span class="hljs-keyword">var</span> jwtSecurityToken = tokenHandler.CreateJwtSecurityToken(
+            audience: audienceToken,
+            issuer: issuerToken,
+            subject: claimsIdentity,
+            notBefore: DateTime.UtcNow,
+            expires: DateTime.UtcNow.AddMinutes(Convert.ToInt32(expireTime)),
+            signingCredentials: signingCredentials);
+
+        <span class="hljs-keyword">var</span> jwtTokenString = tokenHandler.WriteToken(jwtSecurityToken);
+        <span class="hljs-keyword">return</span> jwtTokenString;
+    {{'}'}}
+  {{'}'}}
+{{'}'}}
+</code></pre>
+
+        <p><strong>TokenValidationHandler.cs</strong></p>
+
+        <pre><code class="language-csharp hljs cs"><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Collections.Generic;
+<span class="hljs-keyword">using</span> System.Configuration;
+<span class="hljs-keyword">using</span> System.Linq;
+<span class="hljs-keyword">using</span> System.Net;
+<span class="hljs-keyword">using</span> System.Net.Http;
+<span class="hljs-keyword">using</span> System.Threading;
+<span class="hljs-keyword">using</span> System.Threading.Tasks;
+<span class="hljs-keyword">using</span> System.Web;
+<span class="hljs-keyword">using</span> Microsoft.IdentityModel.Tokens;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">WebApiSegura</span>.<span class="hljs-title">Controllers</span>
+{{'{'}}
+  <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;summary&gt;</span></span>
+  <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> Token validator for Authorization Request using a DelegatingHandler</span>
+  <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;/summary&gt;</span></span>
+  <span class="hljs-keyword">internal</span> <span class="hljs-keyword">class</span> <span class="hljs-title">TokenValidationHandler</span> : <span class="hljs-title">DelegatingHandler</span>
+  {{'{'}}
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">TryRetrieveToken</span><span class="hljs-params">(HttpRequestMessage request, <span class="hljs-keyword">out</span> <span class="hljs-keyword">string</span> token)</span>
+    </span>{{'{'}}
+        token = <span class="hljs-keyword">null</span>;
+        IEnumerable&lt;<span class="hljs-keyword">string</span>&gt; authzHeaders;
+        <span class="hljs-keyword">if</span> (!request.Headers.TryGetValues(<span class="hljs-string">"Authorization"</span>, <span class="hljs-keyword">out</span> authzHeaders) || authzHeaders.Count() &gt; <span class="hljs-number">1</span>)
+        {{'{'}}
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        {{'}'}}
+        <span class="hljs-keyword">var</span> bearerToken = authzHeaders.ElementAt(<span class="hljs-number">0</span>);
+        token = bearerToken.StartsWith(<span class="hljs-string">"Bearer "</span>) ? bearerToken.Substring(<span class="hljs-number">7</span>) : bearerToken;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+    {{'}'}}
+
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> Task&lt;HttpResponseMessage&gt; <span class="hljs-title">SendAsync</span><span class="hljs-params">(HttpRequestMessage request, CancellationToken cancellationToken)</span>
+    </span>{{'{'}}
+        HttpStatusCode statusCode;
+        <span class="hljs-keyword">string</span> token;
+
+        <span class="hljs-comment">// determine whether a jwt exists or not</span>
+        <span class="hljs-keyword">if</span> (!TryRetrieveToken(request, <span class="hljs-keyword">out</span> token))
+        {{'{'}}
+            statusCode = HttpStatusCode.Unauthorized;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">base</span>.SendAsync(request, cancellationToken);
+        {{'}'}}
+
+        <span class="hljs-keyword">try</span>
+        {{'{'}}
+            <span class="hljs-keyword">var</span> secretKey = ConfigurationManager.AppSettings[<span class="hljs-string">"JWT_SECRET_KEY"</span>];
+            <span class="hljs-keyword">var</span> audienceToken = ConfigurationManager.AppSettings[<span class="hljs-string">"JWT_AUDIENCE_TOKEN"</span>];
+            <span class="hljs-keyword">var</span> issuerToken = ConfigurationManager.AppSettings[<span class="hljs-string">"JWT_ISSUER_TOKEN"</span>];
+            <span class="hljs-keyword">var</span> securityKey = <span class="hljs-keyword">new</span> SymmetricSecurityKey(System.Text.Encoding.Default.GetBytes(secretKey));
+
+            SecurityToken securityToken;
+            <span class="hljs-keyword">var</span> tokenHandler = <span class="hljs-keyword">new</span> System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
+            TokenValidationParameters validationParameters = <span class="hljs-keyword">new</span> TokenValidationParameters()
+            {{'{'}}
+                ValidAudience = audienceToken,
+                ValidIssuer = issuerToken,
+                ValidateLifetime = <span class="hljs-keyword">true</span>,
+                ValidateIssuerSigningKey = <span class="hljs-keyword">true</span>,
+                LifetimeValidator = <span class="hljs-keyword">this</span>.LifetimeValidator,
+                IssuerSigningKey = securityKey
+            {{'}'}};
+
+            <span class="hljs-comment">// Extract and assign Current Principal and user</span>
+            Thread.CurrentPrincipal = tokenHandler.ValidateToken(token, validationParameters, <span class="hljs-keyword">out</span> securityToken);
+            HttpContext.Current.User = tokenHandler.ValidateToken(token, validationParameters, <span class="hljs-keyword">out</span> securityToken);
+
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">base</span>.SendAsync(request, cancellationToken);
+        {{'}'}}
+        <span class="hljs-keyword">catch</span> (SecurityTokenValidationException)
+        {{'{'}}
+            statusCode = HttpStatusCode.Unauthorized;
+        {{'}'}}
+        <span class="hljs-keyword">catch</span> (Exception)
+        {{'{'}}
+            statusCode = HttpStatusCode.InternalServerError;
+        {{'}'}}
+
+        <span class="hljs-keyword">return</span> Task&lt;HttpResponseMessage&gt;.Factory.StartNew(() =&gt; <span class="hljs-keyword">new</span> HttpResponseMessage(statusCode) {{'{ }'}});
+    {{'}'}}
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">LifetimeValidator</span><span class="hljs-params">(DateTime? notBefore, DateTime? expires, SecurityToken securityToken, TokenValidationParameters validationParameters)</span>
+    </span>{{'{'}}
+        <span class="hljs-keyword">if</span> (expires != <span class="hljs-keyword">null</span>)
+        {{'{'}}
+            <span class="hljs-keyword">if</span> (DateTime.UtcNow &lt; expires) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        {{'}'}}
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    {{'}'}}
+  {{'}'}}
+{{'}'}}
+</code></pre>
+
+        <p><strong>Global.asax</strong></p>
+
+        <pre><code class="language-csharp hljs cs"><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Web.Http;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">WebApiSegura</span>
+{{'{'}}
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">WebApiApplication</span> : <span class="hljs-title">System</span>.<span class="hljs-title">Web</span>.<span class="hljs-title">HttpApplication</span>
+  {{'{'}}
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Application_Start</span><span class="hljs-params">()</span>
+    </span>{{'{'}}
+        GlobalConfiguration.Configure(WebApiConfig.Register);
+    {{'}'}}
+  {{'}'}}
+{{'}'}}
+</code></pre>
+
+        <p><strong>WebApiConfig.cs</strong></p>
+
+        <pre><code class="language-csharp hljs cs"><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Web.Http;
+<span class="hljs-keyword">using</span> WebApiSegura.Controllers;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">WebApiSegura</span>
+{{'{'}}
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">WebApiConfig</span>
+  {{'{'}}
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Register</span><span class="hljs-params">(HttpConfiguration config)</span>
+    </span>{{'{'}}
+        <span class="hljs-comment">// Configuración de rutas y servicios de API</span>
+        config.MapHttpAttributeRoutes();
+
+        config.MessageHandlers.Add(<span class="hljs-keyword">new</span> TokenValidationHandler());
+
+        config.Routes.MapHttpRoute(
+            name: <span class="hljs-string">"DefaultApi"</span>,
+            routeTemplate: <span class="hljs-string">"api/{{'{'}}controller{{'}'}}/{{'{'}}id{{'}'}}"</span>,
+            defaults: <span class="hljs-keyword">new</span> {{'{'}} id = RouteParameter.Optional {{'}'}}
+        );
+    {{'}'}}
+  {{'}'}}
+{{'}'}}
+</code></pre>
+
+        <p><strong>Web.config</strong></p>
+
+        <pre><code class="language-xml hljs"><span class="hljs-pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">configuration</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">appSettings</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">add</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"JWT_SECRET_KEY"</span>     <span class="hljs-attribute">value</span>=<span class="hljs-value">"clave-secreta-api"</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">add</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"JWT_AUDIENCE_TOKEN"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"http://localhost:49220"</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">add</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"JWT_ISSUER_TOKEN"</span>   <span class="hljs-attribute">value</span>=<span class="hljs-value">"http://localhost:49220"</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">add</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"JWT_EXPIRE_MINUTES"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"30"</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">appSettings</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">system.web</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">compilation</span> <span class="hljs-attribute">debug</span>=<span class="hljs-value">"true"</span> <span class="hljs-attribute">targetFramework</span>=<span class="hljs-value">"4.6.1"</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">httpRuntime</span> <span class="hljs-attribute">targetFramework</span>=<span class="hljs-value">"4.6.1"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">system.web</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">system.webServer</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">handlers</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">remove</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"ExtensionlessUrlHandler-Integrated-4.0"</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">remove</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"OPTIONSVerbHandler"</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">remove</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"TRACEVerbHandler"</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">add</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"ExtensionlessUrlHandler-Integrated-4.0"</span> <span class="hljs-attribute">path</span>=<span class="hljs-value">"*."</span> <span class="hljs-attribute">verb</span>=<span class="hljs-value">"*"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"System.Web.Handlers.TransferRequestHandler"</span> <span class="hljs-attribute">preCondition</span>=<span class="hljs-value">"integratedMode,runtimeVersionv4.0"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">handlers</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">system.webServer</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">runtime</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">assemblyBinding</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"urn:schemas-microsoft-com:asm.v1"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">dependentAssembly</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">assemblyIdentity</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"System.Web.Helpers"</span> <span class="hljs-attribute">publicKeyToken</span>=<span class="hljs-value">"31bf3856ad364e35"</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">bindingRedirect</span> <span class="hljs-attribute">oldVersion</span>=<span class="hljs-value">"1.0.0.0-3.0.0.0"</span> <span class="hljs-attribute">newVersion</span>=<span class="hljs-value">"3.0.0.0"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">dependentAssembly</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">dependentAssembly</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">assemblyIdentity</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"System.Web.Mvc"</span> <span class="hljs-attribute">publicKeyToken</span>=<span class="hljs-value">"31bf3856ad364e35"</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">bindingRedirect</span> <span class="hljs-attribute">oldVersion</span>=<span class="hljs-value">"1.0.0.0-5.2.3.0"</span> <span class="hljs-attribute">newVersion</span>=<span class="hljs-value">"5.2.3.0"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">dependentAssembly</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">dependentAssembly</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">assemblyIdentity</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"System.Web.WebPages"</span> <span class="hljs-attribute">publicKeyToken</span>=<span class="hljs-value">"31bf3856ad364e35"</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">bindingRedirect</span> <span class="hljs-attribute">oldVersion</span>=<span class="hljs-value">"1.0.0.0-3.0.0.0"</span> <span class="hljs-attribute">newVersion</span>=<span class="hljs-value">"3.0.0.0"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">dependentAssembly</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">dependentAssembly</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">assemblyIdentity</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"Newtonsoft.Json"</span> <span class="hljs-attribute">publicKeyToken</span>=<span class="hljs-value">"30ad4fe6b2a6aeed"</span> <span class="hljs-attribute">culture</span>=<span class="hljs-value">"neutral"</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">bindingRedirect</span> <span class="hljs-attribute">oldVersion</span>=<span class="hljs-value">"0.0.0.0-10.0.0.0"</span> <span class="hljs-attribute">newVersion</span>=<span class="hljs-value">"10.0.0.0"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">dependentAssembly</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">assemblyBinding</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">runtime</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">system.codedom</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">compilers</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">compiler</span> <span class="hljs-attribute">language</span>=<span class="hljs-value">"c#;cs;csharp"</span> <span class="hljs-attribute">extension</span>=<span class="hljs-value">".cs"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"</span> <span class="hljs-attribute">warningLevel</span>=<span class="hljs-value">"4"</span> <span class="hljs-attribute">compilerOptions</span>=<span class="hljs-value">"/langversion:default /nowarn:1659;1699;1701"</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">compiler</span> <span class="hljs-attribute">language</span>=<span class="hljs-value">"vb;vbs;visualbasic;vbscript"</span> <span class="hljs-attribute">extension</span>=<span class="hljs-value">".vb"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"Microsoft.CodeDom.Providers.DotNetCompilerPlatform.VBCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"</span> <span class="hljs-attribute">warningLevel</span>=<span class="hljs-value">"4"</span> <span class="hljs-attribute">compilerOptions</span>=<span class="hljs-value">"/langversion:default /nowarn:41008 /define:_MYTYPE=\&amp;quot;Web\&amp;quot; /optionInfer+"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">compilers</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">system.codedom</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">configuration</span>&gt;</span>
+</code></pre>
+
+        <h5 id="comprobandoquetodofunciona">Comprobando que todo funciona</h5>
+
+        <p>Una vez tenemos el codigo listo, vamos a verificar que realmente nuestra API funciona y hace lo que debe.</p>
+
+        <p>Vamos a llamar al LoginController, este encarga de validarnos y enviarnos el Token JWT, y luego, hacer
+          peticiones
+          al CustomerController enviando el Token JWT.</p>
+
+        <p>Recordar que es importante tener los controllers "decorados" correctamente.</p>
+
+        <ul>
+          <li>LoginController: no requiere Token porque lo tenemos definido con [AllowAnonymous].</li>
+          <li>CustomerController: si requiere Token porque lo tenemos definido con [Authorize].</li>
+        </ul>
+
+        <h5 id="conclusionesfinales">Conclusiones Finales</h5>
+
+        <p>Un Token JWT, es especialmente útil para autenticar y autorizar usuarios para consumir nuestro servicios del
+          API,
+          ya que, permite la transferencia segura de datos utilizando el poder de la firma digital y el hash, así como,
+          especificar un tiempo de validez para que el Token caduque.</p>
+
+        <p>Además, al trabajar con un protocolo sin estado como REST, tenemos un ahorro de memoria y acceso a datos
+          considerable, en comparación con el enfoque tradicional: cookies y sesiones para mantener el estado el cliente
+          y
+          acceso a datos para obtener la información de usuario, roles y claims.</p>
+
+        <p>Es importante remarcar, que la aplicación cliente (web, desktop, móvil), <strong><em>tiene la responsabilidad
+              de
+              almacenar el JWT en algún sitio seguro</em></strong>, para utilizarlo en todas las llamadas al API, usando
+          las
+          mejores prácticas según cada plataforma y guías de seguridad.</p>
+
+        <p>Por último, no olvidar nunca, <strong><em>siempre debemos publicar nuestro API mediante un certificado
+              HTTPS</em></strong> para encriptar el contenido entre el servidor y el cliente.</p>
+
+    </section>
+  </div>
+</div>

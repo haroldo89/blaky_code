@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tecnificacion
+spec:
+  selector:
+    matchLabels:
+      app: tecnificacion
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: tecnificacion
+    spec:
+      containers:
+        - name: tecnificacion
+          image: haroldo89/tecnificacion:v1
+          ports:
+            - name: http-port
+              containerPort: 80

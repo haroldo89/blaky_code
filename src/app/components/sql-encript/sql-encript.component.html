@@ -1,0 +1,49 @@
+<script src="../../../assets/js/highlight.pack.js"></script>
+<link href="../../../assets/css/tomorrow-night-blue.css" rel="stylesheet" />
+<app-navbar></app-navbar>
+<div class="container pt-5">
+  <div class="row py-5">
+    <div class="row pb-4">
+      <div class="col-12 text-center">
+        <h4>CIFRAR Y DESCIFRAR EN SQL SERVER</h4>
+      </div>
+    </div>
+    <h5 class="col-12 px-0">
+      ¿Cómo cifro y descifro cualquier cadena usando sql server?
+    </h5>
+    <br>
+    <br>
+    <p class="col-12 px-0">
+      <label class="font-weight-bold">passphrase</label>
+      <br>
+      Una frase de contraseña para generar una clave simétrica.
+    </p>
+    <p class="col-12 px-0">
+      <label class="font-weight-bold">@passphrase</label>
+      <br>
+      Una variable de tipo nvarchar, char, varchar, binary, varbinary o nchar que contiene una frase de contraseña para
+      generar una clave simétrica.
+    </p>
+    <p class="col-12 px-0">
+      <label class="font-weight-bold">cleartext</label>
+      <br>
+      El texto sin cifrar a cifrar.
+    </p>
+    <p class="col-12 px-0">
+      <label class="font-weight-bold">@cleartext</label>
+      <br>
+      Una variable de tipo nvarchar, char, varchar, binary, varbinary o nchar que contiene el texto en claro. El tamaño
+      máximo es de 8,000 bytes.
+    </p>
+    <pre class="col-12 px-0">
+    <code class="armasm hljs">
+    <span class="hljs-built_in">DECLARE</span> <span class="hljs-title">@encrypt </span> <span class="hljs-built_in">VARBINARY</span>(200);
+    <span class="hljs-built_in">SELECT</span> <span class="hljs-title">@encrypt</span> = <span class="hljs-built_in">EncryptByPassPhrase</span>(<span class="hljs-comment">'key'</span>, <span class="hljs-comment">'value'</span>));
+    <span class="hljs-built_in">SELECT</span> <span class="hljs-title">@encrypt</span>;
+    <span class="hljs-built_in">SELECT</span> <span class="hljs-built_in">CONVERT</span>(<span class="hljs-built_in">VARCHAR</span>(100), <span class="hljs-built_in">DecryptByPassPhrase</span>(<span class="hljs-comment">'key'</span>, <span class="hljs-title">@encrypt</span>))
+    </code>
+</pre>
+
+    <hr class="col-12 px-0" />
+  </div>
+</div>

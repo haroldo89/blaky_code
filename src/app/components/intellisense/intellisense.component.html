@@ -1,0 +1,297 @@
+<script src="../../../assets/js/highlight.pack.js"></script>
+
+<link href="../../../assets/css/tomorrow-night-blue.css" rel="stylesheet" />
+
+<app-navbar></app-navbar>
+
+<div class="container pt-5">
+  <div class="row py-5">
+    <div class="row pb-4">
+      <div class="col-12 text-center">
+        <h4>NORMAS DOCUMENTACION EN EL CODIGO</h4>
+      </div>
+    </div>
+
+    <p>
+      Cuando se está trabajando en un proyecto (generalmente del tipo API), éste siempre va a ser
+      reutilizado en cualquier momento por otro desarrollador o miembro del equipo de trabajo, y
+      cuando dicho desarrollador desea tomar elementos de esa misma API, éste tiene curiosidad e
+      interés en saber cómo se implementa, qué se puede utilizar y qué no, cuáles son los parámetros
+      de entrada y cuáles son las salidas de datos, si hay o no ejemplos de uso, entre otros aspectos.
+      Pero, si esta API no esta documentada apropiadamente, los desarrolladores que deseen reutilizar
+      ese código estarán atascados y recurrirán siempre al grupo que originalmente redactó el código,
+      provocando un incremento en las horas de trabajo. Las posibles causas por las cuales el código
+      puede quedar inapropiadamente documentado o indocumentado (parcial o totalmente) son: falta de
+      tiempo (debido a los tiempos holgados en los plazos de entrega de los proyectos o incluso en los
+      despliegues de los releases), carencia en la importancia y/o desconocimiento parcial o total de
+      la aplicación de esta práctica, entre otras razones más. El presente documento tiene como finalidad
+      presentar prácticas para evidenciar, no sólo la función que cumplen los algoritmos plasmados, sino
+      también el objetivo o el fin que tiene cada pieza del código que se esté plasmando, bien sea una clase,
+      interfaz, enumeración, etc., esto como ayuda útil tanto para los desarrolladores que deseen reutilizar código
+      previamente escrito, como para los desarrolladores que originalmente lo redactaron y, a su vez, para los miembros
+      de TI y seguridad por ser éstos los revisores e inspectores de lo que se trabaja. Esta guía se enfocará
+      inicialmente en
+      .NET, no obstante, se irá alimentando con más lenguajes de programación a medida que sean requeridos y utilizados.
+    </p>
+    <hr class="col-12 px-0" />
+    <h3 class="col-12 px-0">
+      Generalidades acerca de la documentación de software
+    </h3>
+    <p>
+      Como desarrollador de software, disponer de una documentación confiable para guiar el trabajo es siempre una
+      necesidad,
+      ya que ayuda a mantener seguimiento de todos los aspectos clave de las aplicaciones desarrolladas y a mejorar la
+      calidad de
+      éstas, además de contribuir en tres aspectos fundamentales: desarrollo, mantenimiento e intercambio de
+      conocimiento
+      con otros desarrolladores. Una buena documentación brinda información fácilmente asequible, ofrece un aprendizaje
+      ágil
+      y simplifica el soporte del producto.
+    </p>
+    <p>
+      La documentación de código es la columna vertebral de la aplicación, porque explica cómo funciona ésta
+      internamente y
+      brinda información sobre qué está disponible para extender su funcionalidad. Una documentación inapropiada o
+      ausente
+      puede provocar, entre otras cosas, problemas de desinformación y “atascamiento”. Para los futuros desarrolladores,
+      el
+      código debe escribirse y reescribirse las veces que sea requerido, de tal modo, que sea lo más claro posible de
+      comprender.
+      Comentarlo hace las veces de explicar cómo funciona el código, porqué está ahí. Para muchos, este concepto puede
+      sonar
+      a ciencia espacial, pero, independientemente del lenguaje utilizado, uno siempre debe contar algo de la intención
+      del código,
+      ya que pueden existir escenarios en los cuales los programadores olviden qué hace qué, después de x tiempo.
+      La documentación de APIs ha probado ser muy útil, porque brinda información sobre cómo funciona el código,
+      cómo se puede consumir, qué pide de datos y cuál es la respuesta que se obtiene al consumirla.
+    </p>
+    <hr class="col-12 px-0" />
+    <h3 class="col-12 px-0">
+      IntelliSense
+    </h3>
+    <p>
+      Si bien es cierto, Visual Studio cuenta con un motor de código denominado IntelliSense, el cual es el motor
+      de autocompletado de código, que viene incluido no sólo con Visual Studio y Visual Studio Code, sino también
+      en otros entornos similares tales como NetBeans o Eclipse, y que, adicional a brindar una lista completa de
+      todos los miembros de programación disponibles, ejerce la función de mostrar una ayuda rápida y descriptiva
+      sobre lo que hace cada tipo, método, campo, propiedad, constante y enumeración.
+    </p>
+    <p>
+      Para documentar el código y mantener compatibilidad con el motor Intellisense de Visual Studio, se requiere de
+      conocimiento previo del lenguaje XML y/o HTML (este último es base del primero). La documentación es como
+      los comentarios que generalmente se escribirían en código, pero con funcionalidad más extendida y dichos
+      comentarios se escriben siempre encima de la definición del tipo o miembro a describir. Al momento de compilar,
+      se genera un archivo del tipo XML, encontrado junto con los archivos binarios del proyecto, y que puede ser
+      utilizado al momento de consumir o referenciar dicho proyecto en otro subsecuente, para que, posteriormente,
+      Intellisense lo detecte y recupere toda la información relacionada.
+    </p>
+    <hr class="col-12 px-0" />
+    <h3 class="col-12 px-0">
+      Paso a paso para documentación con IntelliSense (.NET)
+    </h3>
+    <p>
+      Primero, los comentarios de documentación con Intellisense usan al comienzo una triple
+      barra diagonal ( /// ) si es código de C#, o una triple comilla simple ( ῾῾῾ ) si es código de VB.NET,
+      seguido del cuerpo del cometario con tags de XML. He aquí un ejemplo:
+    </p>
+    <pre class="col-12 px-0">
+<code class="cs hljs">
+        ///&#60;summary&#62;
+        /// Clase que ejerce una función cualquiera.
+        ///
+        &#60;/summary&#62;
+        public class MyClass
+        {{'{'}}
+        {{'}'}}
+    </code>
+</pre>
+    <p>
+      Se utilizará el siguiente ejemplo para explicar todos los elementos que componen la documentación en XML. El
+      ejemplo a continuación ilustra un servicio WCF consumible posteriormente en otro proyecto. Lo que hará aquí, es
+      crear una documentación de referencia de la API desde código, destinado a otros desarrolladores que deseen
+      consumirla, pero no tienen acceso al código fuente.
+    </p>
+    <pre class="col-12 px-0">
+<code class="cs hljs">
+        [ServiceContract]
+        public interface IMyWcfService
+        {{'{'}}
+            [OperationContract]
+            int AddCustomer(Customer customer);
+            [OperationContract]
+            IEnumerable &#60;customer&#62;
+            GetAllCustomers();
+            [OperationContract]
+            Customer GetCustomerFromID(int id);
+            [OperationContract]
+            Customer GetCustomerFromName(string name);
+            [OperationContract]
+            void EditCustomer(Customer customer);
+            [OperationContract]
+            int DeleteCustomer(Customer customer);
+        {{'}'}}
+
+        [DataContract]
+        public class Customer
+        {{'{'}}
+            [DataMember]
+            int ID {{'{'}} get; set; {{'}'}}
+            [DataMember]
+            string FirstName {{'{'}} get; set; {{'}'}}
+            [DataMember]
+            string LastName {{'{'}} get; set; {{'}'}}
+            [DataMember]
+            string Address {{'{'}} get; set; {{'}'}}
+            [DataMember]
+            string City {{'{'}} get; set; {{'}'}}
+            [DataMember]
+            string EmailAddress {{'{'}} get; set; {{'}'}}
+            [DataMember]
+            string PhoneNumber {{'{'}} get; set; {{'}'}}
+        {{'}'}}
+    </code>
+</pre>
+    <p>
+      Elementos (tags) que componen la documentación XML
+      &lt;summary&gt;
+      Este tag muestra una descripción básica acerca del tipo o miembro en cuestión. Modificando el ejemplo, se tiene:
+    </p>
+    <pre class="col-12 px-0">
+<code class="cs hljs">
+    /// &lt;summary&gt;
+    /// Interfaz que realiza las operaciones de adición y modificación de la base de datos de clientes.
+    ///
+    &#60;/summary&#62;
+    [ServiceContract]
+    public interface IMyWcfService
+    {{'{'}}
+        /// &lt;summary&gt;
+        /// Añade cliente a la base de datos.
+        ///
+        &#60;/summary&#62;
+        [OperationContract]
+        int AddCustomer(Customer customer);
+        /// &lt;summary&gt;
+        /// Recolecta toda la lista de clientes.
+        ///
+        &#60;/summary&#62;
+        [OperationContract]
+        IEnumerable &#60;Customer&#62;
+        GetAllCustomers();
+        /// &lt;summary&gt;
+        /// Obtiene al cliente que tiene el respectivo identificativo.
+        ///
+        &#60;/summary&#62;
+        [OperationContract]
+        Customer GetCustomerFromID(int id);
+        /// &lt;summary&gt;
+        /// Obtiene al cliente con el nombre especificado.
+        ///
+        &#60;/summary&#62;
+        [OperationContract]
+        Customer GetCustomerFromName(string name);
+        /// &lt;summary&gt;
+        /// Actualiza la información de un cliente determinado.
+        ///
+        &#60;/summary&#62;
+        [OperationContract]
+        void EditCustomer(Customer customer);
+        /// &lt;summary&gt;
+        /// Elimina al cliente de la base de datos.
+        ///
+        &#60;/summary&#62;
+        [OperationContract]
+        int DeleteCustomer(Customer customer);
+    {{'}'}}
+
+    /// &lt;summary&gt;
+    /// Clase que contiene la información básica de un cliente registrado en la base de datos
+    ///
+    &#60;/summary&#62;
+    [DataContract]
+    public class Customer
+    {{'{'}}
+        /// &lt;summary&gt;
+        /// Obtiene o establece la identificación del cliente
+        ///
+        &#60;/summary&#62;
+        [DataMember]
+        int ID {{'{'}} get; set; {{'}'}}
+        /// &lt;summary&gt;
+        /// Obtiene o establece el primer nombre del cliente
+        ///
+        &#60;/summary&#62;
+        [DataMember]
+        string FirstName {{'{'}} get; set; {{'}'}}
+        /// &lt;summary&gt;
+        /// Obtiene o establece el apellido del cliente
+        ///
+        &#60;/summary&#62;
+        [DataMember]
+        string LastName {{'{'}} get; set; {{'}'}}
+        /// &lt;summary&gt;
+        /// Obtiene o establece la dirección de domicilio del cliente
+        ///
+        &#60;/summary&#62;
+        [DataMember]
+        string Address {{'{'}} get; set; {{'}'}}
+        /// &lt;summary&gt;
+        /// Obtiene o establece la ciudad de residencia del cliente
+        ///
+        &#60;/summary&#62;
+        [DataMember]
+        string City {{'{'}} get; set; {{'}'}}
+        /// &lt;summary&gt;
+        /// Obtiene o establece la dirección de correo electrónico del cliente
+        ///
+        &#60;/summary&#62;
+        [DataMember]
+        string EmailAddress {{'{'}} get; set; {{'}'}}
+        /// &lt;summary&gt;
+        /// Obtiene o establece el número de teléfono del cliente
+        ///
+        &#60;/summary&#62;
+        [DataMember]
+        string PhoneNumber {{'{'}} get; set; {{'}'}}
+    {{'}'}}
+    </code>
+</pre>
+    <hr class="col-12 px-0" />
+    <h3 class="col-12 px-0">
+      Recomendaciones para las buenas prácticas de documentación
+    </h3>
+    <p>
+      Para efectos de comprensión de lo que se describe en cada tipo y miembro, se tienen en cuenta las siguientes
+      recomendaciones:
+    </p>
+
+    <ul>
+      <li>
+        Al describir las clases, interfaces, funciones, etc., brindar una descripción breve pero concisa de lo que se
+        pretende, sin extenderse hasta el punto de revelar información confidencial.
+      </li>
+      <li>
+        Documentar solamente los campos que son visibles “al público”. Se recomienda no documentar los miembros privados
+        o que son parte de sólo ese proyecto, pero son invisibles a la audiencia, ya que pueden revelar información
+        sensible.
+      </li>
+      <li>
+        Para que sea visible la descripción en el globo de ayuda de Visual Studio, se debe tener al menos el tag
+        &#60;summary&#62; (caso de C# o VB.NET), ya que hace parte de los parámetros de entrada de Intellisense para
+        generar la documentación respectiva.
+      </li>
+      <li>
+        Si se está documentando una clase con el keyword partial, la documentación se concatenará al compilar el código.
+      </li>
+      <li>
+        Si la clase a documentar contiene el keyword sealed, insertar al final la frase “Esta clase no se puede
+        heredar.”, para efectos de conocimiento al realizar polimorfismo.
+      </li>
+      <li>
+        Cada frase colocada en la documentación debe terminar con un punto final ( . ). Adicionalmente, ese punto aparte
+        no se requiere en la descripción de los parámetros de función o tipos genéricos.
+      </li>
+    </ul>
+    <hr class="col-12 px-0" />
+  </div>
+</div>
