@@ -1,3 +1,6 @@
+import { ProxyComponent } from './components/proxy/proxy.component';
+import { LinuxComponent } from './components/linux/linux.component';
+import { DockerComponent } from './components/docker/docker.component';
 import { SqlEncriptComponent } from './components/sql-encript/sql-encript.component';
 import { DevsecopsComponent } from './components/devsecops/devsecops.component';
 import { PostRequestComponent } from './components/post-request/post-request.component';
@@ -14,7 +17,7 @@ import { SqlComponent } from './components/sql/sql.component';
 import { CsharpComponent } from './components/csharp/csharp.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent, data: { title: 'Tecnificacion' } },
+  { path: '', component: HomeComponent, data: { title: 'Tecnificacion' } },
   {
     path: 'home',
     component: HomeComponent
@@ -68,7 +71,23 @@ const routes: Routes = [
     path: 'sqlEncript',
     component: SqlEncriptComponent
     //canActivate: [LoginGuard]
+  },
+  {
+    path: 'docker',
+    component: DockerComponent
+    //canActivate: [LoginGuard]
+  },
+  {
+    path: 'linux',
+    component: LinuxComponent
+    //canActivate: [LoginGuard]
+  },
+  {
+    path: 'proxy',
+    component: ProxyComponent
+    //canActivate: [LoginGuard]
   }
+
 ];
 
 @NgModule({

@@ -1,4 +1,13 @@
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-success">
+<div class="nav flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+  <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
+  <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+  <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+  <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+</div>
+
+
+
+<nav class="nav flex-column" aria-orientation="vertical">
   <a class="navbar-brand" href="#">doFactory</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,6 +28,12 @@
         </mat-menu>
       </li>
       <li class="nav-item active dropdown">
+        <button mat-button [matMenuTriggerFor]="menuIntell" class="nav-link dropdown-toggle">DOCUMENTACION CODIGO</button>
+        <mat-menu #menuIntell="matMenu">
+          <button mat-menu-item class="dropdown-item" [routerLink]="['/intellisense']" routerLinkActive="router-link-active"  >INTELLISENSE</button>
+        </mat-menu>
+      </li>
+      <li class="nav-item active dropdown">
           <button mat-button [matMenuTriggerFor]="menuUtil" class="nav-link dropdown-toggle">UTILIDADES</button>
           <mat-menu #menuUtil="matMenu">
             <button mat-menu-item class="dropdown-item" [routerLink]="['/jwt']" routerLinkActive="router-link-active">JWT</button>
@@ -28,11 +43,9 @@
           </mat-menu>
         </li>
         <li class="nav-item active dropdown">
-          <button mat-button [matMenuTriggerFor]="menuDevops" class="nav-link dropdown-toggle">CONFIGURACIONES</button>
+          <button mat-button [matMenuTriggerFor]="menuDevops" class="nav-link dropdown-toggle">DEVOPS</button>
           <mat-menu #menuDevops="matMenu">
-            <button mat-menu-item class="dropdown-item" [routerLink]="['/docker']" routerLinkActive="router-link-active">DOCKER BASICO</button>
-            <button mat-menu-item class="dropdown-item" [routerLink]="['/proxy']" routerLinkActive="router-link-active">PROXY</button>
-            <button mat-menu-item class="dropdown-item" [routerLink]="['/linux']" routerLinkActive="router-link-active">LINUX</button>
+            <button mat-menu-item class="dropdown-item" [routerLink]="['/devsecops']" routerLinkActive="router-link-active">INTRODUCCION</button>
           </mat-menu>
         </li>
     </ul>

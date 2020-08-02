@@ -39,7 +39,7 @@ import {
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DialogContentLoaderDialog } from './components/login/login.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -57,6 +57,10 @@ import { JwtComponent } from './components/jwt/jwt.component';
 import { PostRequestComponent } from './components/post-request/post-request.component';
 import { DevsecopsComponent } from './components/devsecops/devsecops.component';
 import { SqlEncriptComponent } from './components/sql-encript/sql-encript.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { DockerComponent } from './components/docker/docker.component';
+import { LinuxComponent } from './components/linux/linux.component';
+import { ProxyComponent } from './components/proxy/proxy.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +77,11 @@ import { SqlEncriptComponent } from './components/sql-encript/sql-encript.compon
     JwtComponent,
     PostRequestComponent,
     DevsecopsComponent,
-    SqlEncriptComponent
+    SqlEncriptComponent,
+    SidebarComponent,
+    DockerComponent,
+    LinuxComponent,
+    ProxyComponent
   ],
   imports: [
     HttpClientModule,
@@ -123,6 +131,10 @@ import { SqlEncriptComponent } from './components/sql-encript/sql-encript.compon
   ],
   providers: [
     LoginService
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+    NO_ERRORS_SCHEMA
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,1263 @@
+<app-navbar></app-navbar>
+<h2><span id="Informacion_del_sistema"><a name="info"></a>Informaci&oacute;n del sistema</span></h2>
+<ol>
+    <li>
+        <div><strong>arch</strong>: mostrar la arquitectura de la m&aacute;quina (1).</div>
+    </li>
+    <li>
+        <div><strong>uname -m</strong>: mostrar la arquitectura de la m&aacute;quina (2).</div>
+    </li>
+    <li>
+        <div><strong>uname -r</strong>: mostrar la versi&oacute;n del kernel usado.</div>
+    </li>
+    <li>
+        <div><strong>dmidecode -q</strong>: mostrar los componentes (hardware) del sistema.</div>
+    </li>
+    <li>
+        <div><strong>hdparm -i /dev/hda</strong>: mostrar las caracter&iacute;sticas de un disco duro.</div>
+    </li>
+    <li>
+        <div><strong>hdparm -tT /dev/sda</strong>: realizar prueba de lectura en un disco duro.</div>
+    </li>
+    <li>
+        <div><strong>cat /proc/cpuinfo</strong>: mostrar informaci&oacute;n de la CPU.</div>
+    </li>
+    <li>
+        <div><strong>cat /proc/interrupts</strong>: mostrar las interrupciones.</div>
+    </li>
+    <li>
+        <div><strong>cat /proc/meminfo</strong>: verificar el uso de memoria.</div>
+    </li>
+    <li>
+        <div><strong>cat /proc/swaps</strong>: mostrar ficheros swap.</div>
+    </li>
+    <li>
+        <div><strong>cat /proc/version</strong>: mostrar la versi&oacute;n del kernel.</div>
+    </li>
+    <li>
+        <div><strong>cat /proc/net/dev</strong>: mostrar adaptadores de red y estad&iacute;sticas.</div>
+    </li>
+    <li>
+        <div><strong>cat /proc/mounts</strong>: mostrar el sistema de ficheros montado.</div>
+    </li>
+    <li>
+        <div><strong>lspci -tv</strong>: mostrar los dispositivos PCI.</div>
+    </li>
+    <li>
+        <div><strong>lsusb -tv</strong>: mostrar los dispositivos USB.</div>
+    </li>
+    <li>
+        <div><strong>date</strong>: mostrar la fecha del sistema.</div>
+    </li>
+    <li>
+        <div><strong>cal 2011</strong>: mostrar el almanaque de 2011.</div>
+    </li>
+    <li>
+        <div><strong>cal 07 2011</strong>: mostrar el almanaque para el mes julio de 2011.</div>
+    </li>
+    <li>
+        <div><strong>date 041217002011.00</strong>: colocar (declarar, ajustar) fecha y hora.</div>
+    </li>
+    <li>
+        <div><strong>clock -w</strong>: guardar los cambios de fecha en la BIOS.</div>
+    </li>
+</ol>
+<h2><span id="Apagar_Reiniciar_Sistema_o_Cerrar_Sesion"><a name="apagar"></a>Apagar (Reiniciar Sistema o Cerrar
+        Sesi&oacute;n)</span></h2>
+<ol>
+    <li>
+        <div><strong>shutdown -h now</strong>: apagar el sistema (1).</div>
+    </li>
+    <li>
+        <div><strong>init 0</strong>: apagar el sistema (2).</div>
+    </li>
+    <li>
+        <div><strong>telinit 0</strong>: apagar el sistema (3).</div>
+    </li>
+    <li>
+        <div><strong>halt</strong>: apagar el sistema (4).</div>
+    </li>
+    <li>
+        <div><strong>shutdown -h hours:minutes &amp;</strong>: apagado planificado del sistema.</div>
+    </li>
+    <li>
+        <div><strong>shutdown -c</strong>: cancelar un apagado planificado del sistema.</div>
+    </li>
+    <li>
+        <div><strong>shutdown -r now</strong>: reiniciar (1).</div>
+    </li>
+    <li>
+        <div><strong>reboot</strong>: reiniciar (2).</div>
+    </li>
+    <li>
+        <div><strong>logout</strong>: cerrar sesi&oacute;n.</div>
+    </li>
+</ol>
+<h2><span id="Archivos_y_Directorios"><a name="archi"></a>Archivos y Directorios</span></h2>
+<ol>
+    <li>
+        <div><strong>cd /home</strong>: entrar en el directorio &ldquo;home&rdquo;.</div>
+    </li>
+    <li>
+        <div><strong>cd ..</strong>: retroceder un nivel.</div>
+    </li>
+    <li>
+        <div><strong>cd ../..</strong>: retroceder 2 niveles.</div>
+    </li>
+    <li>
+        <div><strong>cd:</strong> ir al directorio ra&iacute;z.</div>
+    </li>
+    <li>
+        <div><strong>cd ~user1</strong>: ir al directorio user1.</div>
+    </li>
+    <li>
+        <div><strong>cd &ndash;</strong>: ir (regresar) al directorio anterior.</div>
+    </li>
+    <li>
+        <div><strong>pwd</strong>: mostrar el camino del directorio de trabajo.</div>
+    </li>
+    <li>
+        <div><strong>ls</strong>: ver los ficheros de un directorio.</div>
+    </li>
+    <li>
+        <div><strong>ls -F</strong>: ver los ficheros de un directorio.</div>
+    </li>
+    <li>
+        <div><strong>ls -l</strong>: mostrar los detalles de ficheros y carpetas de un directorio.</div>
+    </li>
+    <li>
+        <div><strong>ls -a</strong>: mostrar los ficheros ocultos.</div>
+    </li>
+    <li>
+        <div><strong>ls *[0-9]</strong>*: mostrar los ficheros y carpetas que contienen n&uacute;meros.</div>
+    </li>
+    <li>
+        <div><strong>tree</strong>: mostrar los ficheros y carpetas en forma de &aacute;rbol comenzando por la
+            ra&iacute;z.(1)</div>
+    </li>
+    <li>
+        <div><strong>lstree</strong>: mostrar los ficheros y carpetas en forma de &aacute;rbol comenzando por la
+            ra&iacute;z.(2)</div>
+    </li>
+    <li>
+        <div><strong>mkdir dir1</strong>: crear una carpeta o directorio con nombre &lsquo;dir1&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>mkdir dir1 dir2</strong>: crear dos carpetas o directorios simult&aacute;neamente (Crear dos
+            directorios a la vez).</div>
+    </li>
+    <li>
+        <div><strong>mkdir -p /tmp/dir1/dir2</strong>: crear un &aacute;rbol de directorios.</div>
+    </li>
+    <li>
+        <div><strong>rm -f file1</strong>: borrar el fichero llamado &lsquo;file1&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>rmdir dir1</strong>: borrar la carpeta llamada &lsquo;dir1&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>rm -rf dir1</strong>: eliminar una carpeta llamada &lsquo;dir1&rsquo; con su contenido de forma
+            recursiva. (Si lo borro recursivo estoy diciendo que es con su contenido).</div>
+    </li>
+    <li>
+        <div><strong>rm -rf dir1 dir2</strong>: borrar dos carpetas (directorios) con su contenido de forma recursiva.
+        </div>
+    </li>
+    <li>
+        <div><strong>mv dir1 new_dir</strong>: renombrar o mover un fichero o carpeta (directorio).</div>
+    </li>
+    <li>
+        <div><strong>cp file1</strong>: copiar un fichero.</div>
+    </li>
+    <li>
+        <div><strong>cp file1 file2</strong>: copiar dos ficheros al un&iacute;sono.</div>
+    </li>
+    <li>
+        <div><strong>cp dir /* .</strong>: copiar todos los ficheros de un directorio dentro del directorio de trabajo
+            actual.</div>
+    </li>
+    <li>
+        <div><strong>cp -a /tmp/dir1 .</strong>: copiar un directorio dentro del directorio actual de trabajo.</div>
+    </li>
+    <li>
+        <div><strong>cp -a dir1</strong>: copiar un directorio.</div>
+    </li>
+    <li>
+        <div><strong>cp -a dir1 dir2</strong>: copiar dos directorio al un&iacute;sono.</div>
+    </li>
+    <li>
+        <div><strong>ln -s file1 lnk1</strong>: crear un enlace simb&oacute;lico al fichero o directorio.</div>
+    </li>
+    <li>
+        <div><strong>ln file1 lnk1</strong>: crear un enlace f&iacute;sico al fichero o directorio.</div>
+    </li>
+    <li>
+        <div><strong>touch -t 0712250000 file1</strong>: modificar el tiempo real (tiempo de creaci&oacute;n) de un
+            fichero o directorio.</div>
+    </li>
+    <li>
+        <div><strong>file file1</strong>: salida (volcado en pantalla) del tipo mime de un fichero texto.</div>
+    </li>
+    <li>
+        <div><strong>iconv -l</strong>: listas de cifrados conocidos.</div>
+    </li>
+    <li>
+        <div><strong>iconv -f fromEncoding -t toEncoding inputFile &gt; outputFile</strong>: crea una nueva forma del
+            fichero de entrada asumiendo que est&aacute; codificado en fromEncoding y convirti&eacute;ndolo a
+            ToEncoding.</div>
+    </li>
+    <li>
+        <div><strong>find . -maxdepth 1 -name *.jpg -print -exec convert &rdquo;&rdquo; -resize 80&times;60
+                &ldquo;thumbs/&rdquo; \;</strong>: agrupar ficheros redimensionados en el directorio actual y
+            enviarlos a directorios en vistas de miniaturas (requiere convertir desde ImagemagicK).</div>
+    </li>
+</ol>
+<h2><span id="Encontrar_archivos"><a name="encontrar"></a>Encontrar archivos</span></h2>
+<ol>
+    <li>
+        <div><strong>find / -name file1</strong>: buscar fichero y directorio a partir de la ra&iacute;z del sistema.
+        </div>
+    </li>
+    <li>
+        <div><strong>find / -user user1</strong>: buscar ficheros y directorios pertenecientes al usuario
+            &lsquo;user1&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>find /home/user1 -name \*.bin</strong>: buscar ficheros con extensi&oacute;n &lsquo;. bin&rsquo;
+            dentro del directorio &lsquo;/ home/user1&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>find /usr/bin -type f -atime +100</strong>: buscar ficheros binarios no usados en los
+            &uacute;ltimos 100 d&iacute;as.</div>
+    </li>
+    <li>
+        <div><strong>find /usr/bin -type f -mtime -10</strong>: buscar ficheros creados o cambiados dentro de los
+            &uacute;ltimos 10 d&iacute;as.</div>
+    </li>
+    <li>
+        <div><strong>find / -name \*.rpm -exec chmod 755 &lsquo;&rsquo; \;</strong>: buscar ficheros con
+            extensi&oacute;n &lsquo;.rpm&rsquo; y modificar permisos.</div>
+    </li>
+    <li>
+        <div><strong>find / -xdev -name \*.rpm</strong>: Buscar ficheros con extensi&oacute;n &lsquo;.rpm&rsquo;
+            ignorando los dispositivos removibles como cdrom, pen-drive, etc.&hellip;</div>
+    </li>
+    <li>
+        <div><strong>locate \*.ps</strong>: encuentra ficheros con extensi&oacute;n &lsquo;.ps&rsquo; ejecutados
+            primeramente con el command &lsquo;updatedb&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>whereis halt</strong>: mostrar la ubicaci&oacute;n de un fichero binario, de ayuda o fuente. En
+            este caso pregunta d&oacute;nde est&aacute; el comando &lsquo;halt&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>which halt</strong>: mostrar la senda completa (el camino completo) a un binario / ejecutable.
+        </div>
+    </li>
+</ol>
+<h2><span id="Montando_un_sistema_de_ficheros"><a name="montar"></a>Montando un sistema de ficheros</span></h2>
+<ol>
+    <li>
+        <div><strong>mount /dev/hda2 /mnt/hda2</strong>: montar un disco llamado hda2. Verifique primero la existencia
+            del directorio &lsquo;/ mnt/hda2&rsquo;; si no est&aacute;, debe crearlo.</div>
+    </li>
+    <li>
+        <div><strong>umount /dev/hda2</strong>: desmontar un disco llamado hda2. Salir primero desde el punto &lsquo;/
+            mnt/hda2.</div>
+    </li>
+    <li>
+        <div><strong>fuser -km /mnt/hda2</strong>: forzar el desmontaje cuando el dispositivo est&aacute; ocupado.</div>
+    </li>
+    <li>
+        <div><strong>umount -n /mnt/hda2</strong>: correr el desmontaje sin leer el fichero /etc/mtab. &Uacute;til
+            cuando el fichero es de solo lectura o el disco duro est&aacute; lleno.</div>
+    </li>
+    <li>
+        <div><strong>mount /dev/fd0 /mnt/floppy</strong>: montar un disco flexible (floppy).</div>
+    </li>
+    <li>
+        <div><strong>mount /dev/cdrom /mnt/cdrom</strong>: montar un cdrom / dvdrom.</div>
+    </li>
+    <li>
+        <div><strong>mount /dev/hdc /mnt/cdrecorder</strong>: montar un cd regrabable o un dvdrom.</div>
+    </li>
+    <li>
+        <div><strong>mount /dev/hdb /mnt/cdrecorder</strong>: montar un cd regrabable / dvdrom (un dvd).</div>
+    </li>
+    <li>
+        <div><strong>mount -o loop file.iso /mnt/cdrom</strong>: montar un fichero o una imagen iso.</div>
+    </li>
+    <li>
+        <div><strong>mount -t vfat /dev/hda5 /mnt/hda5</strong>: montar un sistema de ficheros FAT32.</div>
+    </li>
+    <li>
+        <div><strong>mount /dev/sda1 /mnt/usbdisk</strong>: montar un usb pen-drive o una memoria (sin especificar el
+            tipo de sistema de ficheros).</div>
+    </li>
+</ol>
+<h2><span id="Espacio_de_Disco"><a name="espacio"></a>Espacio de Disco</span></h2>
+<ol>
+    <li>
+        <div><strong>df -h</strong>: mostrar una lista de las particiones montadas.</div>
+    </li>
+    <li>
+        <div><strong>ls -lSr |more</strong>: mostrar el tama&ntilde;o de los ficheros y directorios ordenados por
+            tama&ntilde;o.</div>
+    </li>
+    <li>
+        <div><strong>du -sh dir1</strong>: Estimar el espacio usado por el directorio &lsquo;dir1&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>du -sk * | sort -rn</strong>: mostrar el tama&ntilde;o de los ficheros y directorios ordenados por
+            tama&ntilde;o.</div>
+    </li>
+    <li>
+        <div><strong>rpm -q -a &ndash;qf &lsquo;%10SIZEt%NAMEn&rsquo; | sort -k1,1n</strong>: mostrar el espacio
+            usado por los paquetes rpm instalados organizados por tama&ntilde;o (Fedora, Redhat y otros).</div>
+    </li>
+    <li>
+        <div><strong>dpkg-query -W -f=&rsquo;$Installed-Size;10t$Packagen&rsquo; | sort -k1,1n</strong>: mostrar el
+            espacio usado por los paquetes instalados, organizados por tama&ntilde;o (Ubuntu, Debian y otros).</div>
+    </li>
+</ol>
+<h2><span id="Usuarios_y_Grupos"><a name="usuarios"></a>Usuarios y Grupos</span></h2>
+<ol>
+    <li>
+        <div><strong>groupadd nombre_del_grupo</strong>: crear un nuevo grupo.</div>
+    </li>
+    <li>
+        <div><strong>groupdel nombre_del_grupo</strong>: borrar un grupo.</div>
+    </li>
+    <li>
+        <div><strong>groupmod -n nuevo_nombre_del_grupo viejo_nombre_del_grupo</strong>: renombrar un grupo.</div>
+    </li>
+    <li>
+        <div><strong>useradd -c &ldquo;Name Surname &rdquo; -g admin -d /home/user1 -s /bin/bash user1</strong>: Crear
+            un nuevo usuario perteneciente al grupo &ldquo;admin&rdquo;.</div>
+    </li>
+    <li>
+        <div><strong>useradd user1</strong>: crear un nuevo usuario.</div>
+    </li>
+    <li>
+        <div><strong>userdel -r user1</strong>: borrar un usuario (&lsquo;-r&rsquo; elimina el directorio Home).</div>
+    </li>
+    <li>
+        <div><strong>usermod -c &ldquo;User <acronym title="File Transfer Protocol">FTP</acronym>&rdquo; -g system -d
+                /ftp/user1 -s /bin/nologin user1</strong>: cambiar los atributos del usuario.</div>
+    </li>
+    <li>
+        <div><strong>passwd</strong>: cambiar contrase&ntilde;a.</div>
+    </li>
+    <li>
+        <div><strong>passwd user1</strong>: cambiar la contrase&ntilde;a de un usuario (solamente por root).</div>
+    </li>
+    <li>
+        <div><strong>chage -E 2011-12-31 user1</strong>: colocar un plazo para la contrase&ntilde;a del usuario. En este
+            caso dice que la clave expira el 31 de diciembre de 2011.</div>
+    </li>
+    <li>
+        <div><strong>pwck</strong>: chequear la sintaxis correcta el formato de fichero de &lsquo;/etc/passwd&rsquo; y
+            la existencia de usuarios.</div>
+    </li>
+    <li>
+        <div><strong>grpck</strong>: chequear la sintaxis correcta y el formato del fichero &lsquo;/etc/group&rsquo; y
+            la existencia de grupos.</div>
+    </li>
+    <li>
+        <div><strong>newgrp group_name</strong>: registra a un nuevo grupo para cambiar el grupo predeterminado de los
+            ficheros creados recientemente.</div>
+    </li>
+</ol>
+<h2><span id="Permisos_en_Ficheros_Usa_para_colocar_permisos_y_-_para_eliminar"><a name="pfiche"></a>Permisos en
+        Ficheros (Usa &rdquo;+&rdquo; para colocar permisos y &rdquo;-&rdquo; para eliminar)</span></h2>
+<ol>
+    <li>
+        <div><strong>ls -lh</strong>: Mostrar permisos.</div>
+    </li>
+    <li>
+        <div><strong>ls /tmp | pr -T5 -W$COLUMNS</strong>: dividir la terminal en 5 columnas.</div>
+    </li>
+    <li>
+        <div><strong>chmod ugo+rwx directory1</strong>: colocar permisos de lectura &reg;, escritura (w) y
+            ejecuci&oacute;n(x) al propietario (u), al grupo (g) y a otros (o) sobre el directorio
+            &lsquo;directory1&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>chmod go-rwx directory1</strong>: quitar permiso de lectura &reg;, escritura (w) y (x)
+            ejecuci&oacute;n al grupo (g) y otros (o) sobre el directorio &lsquo;directory1&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>chown user1 file1</strong>: cambiar el due&ntilde;o de un fichero.</div>
+    </li>
+    <li>
+        <div><strong>chown -R user1 directory1</strong>: cambiar el propietario de un directorio y de todos los ficheros
+            y directorios contenidos dentro.</div>
+    </li>
+    <li>
+        <div><strong>chgrp group1 file1</strong>: cambiar grupo de ficheros.</div>
+    </li>
+    <li>
+        <div><strong>chown user1:group1 file1</strong>: cambiar usuario y el grupo propietario de un fichero.</div>
+    </li>
+    <li>
+        <div><strong>find / -perm -u+s</strong>: visualizar todos los ficheros del sistema con SUID configurado.</div>
+    </li>
+    <li>
+        <div><strong>chmod u+s /bin/file1</strong>: colocar el bit SUID en un fichero binario. El usuario que corriendo
+            ese fichero adquiere los mismos privilegios como due&ntilde;o.</div>
+    </li>
+    <li>
+        <div><strong>chmod u-s /bin/file1</strong>: deshabilitar el bit SUID en un fichero binario.</div>
+    </li>
+    <li>
+        <div><strong>chmod g+s /home/public</strong>: colocar un bit SGID en un directorio &ndash;similar al SUID pero
+            por directorio.</div>
+    </li>
+    <li>
+        <div><strong>chmod g-s /home/public</strong>: desabilitar un bit SGID en un directorio.</div>
+    </li>
+    <li>
+        <div><strong>chmod o+t /home/public</strong>: colocar un bit STIKY en un directorio. Permite el borrado de
+            ficheros solamente a los due&ntilde;os leg&iacute;timos.</div>
+    </li>
+    <li>
+        <div><strong>chmod o-t /home/public</strong>: desabilitar un bit STIKY en un directorio.</div>
+    </li>
+</ol>
+<h2><span id="Atributos_especiales_en_ficheros_Usa_para_colocar_permisos_y_-_para_eliminar"><a name="afiche"></a>Atributos especiales en ficheros (Usa &rdquo;+&rdquo; para colocar permisos y
+        &rdquo;-&rdquo; para eliminar)</span></h2>
+<ol>
+    <li>
+        <div><strong>chattr +a file1</strong>: permite escribir abriendo un fichero solamente modo append.</div>
+    </li>
+    <li>
+        <div><strong>chattr +c file1</strong>: permite que un fichero sea comprimido / descomprimido automaticamente.
+        </div>
+    </li>
+    <li>
+        <div><strong>chattr +d file1</strong>: asegura que el programa ignore borrar los ficheros durante la copia de
+            seguridad.</div>
+    </li>
+    <li>
+        <div><strong>chattr +i file1</strong>: convierte el fichero en invariable, por lo que no puede ser eliminado,
+            alterado, renombrado, ni enlazado.</div>
+    </li>
+    <li>
+        <div><strong>chattr +s file1</strong>: permite que un fichero sea borrado de forma segura.</div>
+    </li>
+    <li>
+        <div><strong>chattr +S file1</strong>: asegura que un fichero sea modificado, los cambios son escritos en modo
+            synchronous como con sync.</div>
+    </li>
+    <li>
+        <div><strong>chattr +u file1</strong>: te permite recuperar el contenido de un fichero a&uacute;n si este
+            est&aacute; cancelado.</div>
+    </li>
+    <li>
+        <div><strong>lsattr</strong>: mostrar atributos especiales.</div>
+    </li>
+</ol>
+<h2><span id="Archivos_y_Ficheros_comprimidos"><a name="arfiche"></a>Archivos y Ficheros comprimidos</span></h2>
+<ol>
+    <li>
+        <div><strong>bunzip2 file1.bz2</strong>: descomprime in fichero llamado &lsquo;file1.bz2&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>bzip2 file1</strong>: comprime un fichero llamado &lsquo;file1&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>gunzip file1.gz</strong>: descomprime un fichero llamado &lsquo;file1.gz&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>gzip file1</strong>: comprime un fichero llamado &lsquo;file1&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>gzip -9 file1</strong>: comprime con compresi&oacute;n m&aacute;xima.</div>
+    </li>
+    <li>
+        <div><strong>rar a file1.rar test_file</strong>: crear un fichero rar llamado &lsquo;file1.rar&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>rar a file1.rar file1 file2 dir1</strong>: comprimir &lsquo;file1&rsquo;, &lsquo;file2&rsquo; y
+            &lsquo;dir1&rsquo; simult&aacute;neamente.</div>
+    </li>
+    <li>
+        <div><strong>rar x file1.rar</strong>: descomprimir archivo rar.</div>
+    </li>
+    <li>
+        <div><strong>unrar x file1.rar</strong>: descomprimir archivo rar.</div>
+    </li>
+    <li>
+        <div><strong>tar -cvf archive.tar file1</strong>: crear un tarball descomprimido.</div>
+    </li>
+    <li>
+        <div><strong>tar -cvf archive.tar file1 file2 dir1</strong>: crear un archivo conteniendo &lsquo;file1&rsquo;,
+            &lsquo;file2&prime; y&rsquo;dir1&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>tar -tf archive.tar</strong>: mostrar los contenidos de un archivo.</div>
+    </li>
+    <li>
+        <div><strong>tar -xvf archive.tar</strong>: extraer un tarball.</div>
+    </li>
+    <li>
+        <div><strong>tar -xvf archive.tar -C /tmp</strong>: extraer un tarball en / tmp.</div>
+    </li>
+    <li>
+        <div><strong>tar -cvfj archive.tar.bz2 dir1</strong>: crear un tarball comprimido dentro de bzip2.</div>
+    </li>
+    <li>
+        <div><strong>tar -xvfj archive.tar.bz2</strong>: descomprimir un archivo tar comprimido en bzip2</div>
+    </li>
+    <li>
+        <div><strong>tar -cvfz archive.tar.gz dir1</strong>: crear un tarball comprimido en gzip.</div>
+    </li>
+    <li>
+        <div><strong>tar -xvfz archive.tar.gz</strong>: descomprimir un archive tar comprimido en gzip.</div>
+    </li>
+    <li>
+        <div><strong>zip file1.zip file1</strong>: crear un archivo comprimido en zip.</div>
+    </li>
+    <li>
+        <div><strong>zip -r file1.zip file1 file2 dir1</strong>: comprimir, en zip, varios archivos y directorios de
+            forma simult&aacute;nea.</div>
+    </li>
+    <li>
+        <div><strong>unzip file1.zip</strong>: descomprimir un archivo zip.</div>
+    </li>
+</ol>
+<h2><span id="Paquetes_RPM_Red_Hat_Fedora_y_similares"><a name="rpm"></a>Paquetes RPM (Red Hat, Fedora y
+        similares)</span></h2>
+<ol>
+    <li>
+        <div><strong>rpm -ivh package.rpm</strong>: instalar un paquete rpm.</div>
+    </li>
+    <li>
+        <div><strong>rpm -ivh &ndash;nodeeps package.rpm</strong>: instalar un paquete rpm ignorando las peticiones de
+            dependencias.</div>
+    </li>
+    <li>
+        <div><strong>rpm -U package.rpm</strong>: actualizar un paquete rpm sin cambiar la configuraci&oacute;n de los
+            ficheros.</div>
+    </li>
+    <li>
+        <div><strong>rpm -F package.rpm</strong>: actualizar un paquete rpm solamente si este est&aacute; instalado.
+        </div>
+    </li>
+    <li>
+        <div><strong>rpm -e package_name.rpm</strong>: eliminar un paquete rpm.</div>
+    </li>
+    <li>
+        <div><strong>rpm -qa</strong>: mostrar todos los paquetes rpm instalados en el sistema.</div>
+    </li>
+    <li>
+        <div><strong>rpm -qa | grep httpd</strong>: mostrar todos los paquetes rpm con el nombre &ldquo;httpd&rdquo;.
+        </div>
+    </li>
+    <li>
+        <div><strong>rpm -qi package_name</strong>: obtener informaci&oacute;n en un paquete espec&iacute;fico
+            instalado.</div>
+    </li>
+    <li>
+        <div><strong>rpm -qg &ldquo;System Environment/Daemons&rdquo;</strong>: mostar los paquetes rpm de un grupo
+            software.</div>
+    </li>
+    <li>
+        <div><strong>rpm -ql package_name</strong>: mostrar lista de ficheros dados por un paquete rpm instalado.</div>
+    </li>
+    <li>
+        <div><strong>rpm -qc package_name</strong>: mostrar lista de configuraci&oacute;n de ficheros dados por un
+            paquete rpm instalado.</div>
+    </li>
+    <li>
+        <div><strong>rpm -q package_name &ndash;whatrequires</strong>: mostrar lista de dependencias solicitada para un
+            paquete rpm.</div>
+    </li>
+    <li>
+        <div><strong>rpm -q package_name &ndash;whatprovides</strong>: mostar la capacidad dada por un paquete rpm.
+        </div>
+    </li>
+    <li>
+        <div><strong>rpm -q package_name &ndash;scripts</strong>: mostrar los scripts comenzados durante la
+            instalaci&oacute;n /eliminaci&oacute;n.</div>
+    </li>
+    <li>
+        <div><strong>rpm -q package_name &ndash;changelog</strong>: mostar el historial de revisions de un paquete rpm.
+        </div>
+    </li>
+    <li>
+        <div><strong>rpm -qf /etc/httpd/conf/httpd.conf</strong>: verificar cu&aacute;l paquete rpm pertenece a un
+            fichero dado.</div>
+    </li>
+    <li>
+        <div><strong>rpm -qp package.rpm -l</strong>: mostrar lista de ficheros dados por un paquete rpm que a&uacute;n
+            no ha sido instalado.</div>
+    </li>
+    <li>
+        <div><strong>rpm &ndash;import /media/cdrom/RPM-GPG-KEY</strong>: importar la firma digital de la llave
+            p&uacute;blica.</div>
+    </li>
+    <li>
+        <div><strong>rpm &ndash;checksig package.rpm</strong>: verificar la integridad de un paquete rpm.</div>
+    </li>
+    <li>
+        <div><strong>rpm -qa gpg-pubkey</strong>: verificar la integridad de todos los paquetes rpm instalados.</div>
+    </li>
+    <li>
+        <div><strong>rpm -V package_name</strong>: chequear el tama&ntilde;o del fichero, licencias, tipos,
+            due&ntilde;o, grupo, chequeo de resumen de MD5 y &uacute;ltima modificaci&oacute;n.</div>
+    </li>
+    <li>
+        <div><strong>rpm -Va</strong>: chequear todos los paquetes rpm instalados en el sistema. Usar con cuidado.</div>
+    </li>
+    <li>
+        <div><strong>rpm -Vp package.rpm</strong>: verificar un paquete rpm no instalado todav&iacute;a.</div>
+    </li>
+    <li>
+        <div><strong>rpm2cpio package.rpm | cpio &ndash;extract &ndash;make-directories *bin</strong>*: extraer fichero
+            ejecutable desde un paquete rpm.</div>
+    </li>
+    <li>
+        <div><strong>rpm -ivh /usr/src/redhat/RPMS/`arch`/package.rpm</strong>: instalar un paquete construido desde una
+            fuente rpm.</div>
+    </li>
+    <li>
+        <div><strong>rpmbuild &ndash;rebuild package_name.src.rpm</strong>: construir un paquete rpm desde una fuente
+            rpm.</div>
+    </li>
+</ol>
+<h2><span id="Actualizador_de_paquetes_YUM_Red_Hat_Fedora_y_similares"><a name="yum"></a>Actualizador de paquetes YUM
+        (Red Hat, Fedora y similares)</span></h2>
+<ol>
+    <li>
+        <div><strong>yum install package_name</strong>: descargar e instalar un paquete rpm.</div>
+    </li>
+    <li>
+        <div><strong>yum localinstall package_name.rpm</strong>: este instalar&aacute; un RPM y tratar&aacute; de
+            resolver todas las dependencies para ti, usando tus repositorios.</div>
+    </li>
+    <li>
+        <div><strong>yum update package_name.rpm</strong>: actualizar todos los paquetes rpm instalados en el sistema.
+        </div>
+    </li>
+    <li>
+        <div><strong>yum update package_name</strong>: modernizar / actualizar un paquete rpm.</div>
+    </li>
+    <li>
+        <div><strong>yum remove package_name</strong>: eliminar un paquete rpm.</div>
+    </li>
+    <li>
+        <div><strong>yum list</strong>: listar todos los paquetes instalados en el sistema.</div>
+    </li>
+    <li>
+        <div><strong>yum search package_name</strong>: Encontrar un paquete en repositorio rpm.</div>
+    </li>
+    <li>
+        <div><strong>yum clean packages</strong>: limpiar un cach&eacute; rpm borrando los paquetes descargados.</div>
+    </li>
+    <li>
+        <div><strong>yum clean headers</strong>: eliminar todos los ficheros de encabezamiento que el sistema usa para
+            resolver la dependencia.</div>
+    </li>
+    <li>
+        <div><strong>yum clean all</strong>: eliminar desde los paquetes cach&eacute; y ficheros de encabezado.</div>
+    </li>
+</ol>
+<h2><span id="Paquetes_Deb_Debian_Ubuntu_y_derivados"><a name="deb"></a>Paquetes Deb (Debian, Ubuntu y derivados)</span>
+</h2>
+<ol>
+    <li>
+        <div><strong>dpkg -i package.deb</strong>: instalar / actualizar un paquete deb.</div>
+    </li>
+    <li>
+        <div><strong>dpkg -r package_name</strong>: eliminar un paquete deb del sistema.</div>
+    </li>
+    <li>
+        <div><strong>dpkg -l</strong>: mostrar todos los paquetes deb instalados en el sistema.</div>
+    </li>
+    <li>
+        <div><strong>dpkg -l | grep httpd</strong>: mostrar todos los paquetes deb con el nombre &ldquo;httpd&rdquo;
+        </div>
+    </li>
+    <li>
+        <div><strong>dpkg -s package_name</strong>: obtener informaci&oacute;n en un paquete espec&iacute;fico instalado
+            en el sistema.</div>
+    </li>
+    <li>
+        <div><strong>dpkg -L package_name</strong>: mostar lista de ficheros dados por un paquete instalado en el
+            sistema.</div>
+    </li>
+    <li>
+        <div><strong>dpkg &ndash;contents package.deb</strong>: mostrar lista de ficheros dados por un paquete no
+            instalado todav&iacute;a.</div>
+    </li>
+    <li>
+        <div><strong>dpkg -S /bin/ping</strong>: verificar cu&aacute;l paquete pertenece a un fichero dado.</div>
+    </li>
+</ol>
+<h2><span id="Actualizador_de_paquetes_APT_Debian_Ubuntu_y_derivados"><a name="apt"></a>Actualizador de paquetes APT
+        (Debian, Ubuntu y derivados)</span></h2>
+<ol>
+    <li>
+        <div><strong>apt-get install package_name</strong>: instalar / actualizar un paquete deb.</div>
+    </li>
+    <li>
+        <div><strong>apt-cdrom install package_name</strong>: instalar / actualizar un paquete deb desde un cdrom.</div>
+    </li>
+    <li>
+        <div><strong>apt-get update</strong>: actualizar la lista de paquetes.</div>
+    </li>
+    <li>
+        <div><strong>apt-get upgrade</strong>: actualizar todos los paquetes instalados.</div>
+    </li>
+    <li>
+        <div><strong>apt-get remove package_name</strong>: eliminar un paquete deb del sistema.</div>
+    </li>
+    <li>
+        <div><strong>apt-get check</strong>: verificar la correcta resoluci&oacute;n de las dependencias.</div>
+    </li>
+    <li>
+        <div><strong>apt-get clean</strong>: limpiar cache desde los paquetes descargados.</div>
+    </li>
+    <li>
+        <div><strong>apt-cache search searched-package</strong>: retorna lista de paquetes que corresponde a la serie
+            &laquo;paquetes buscados&raquo;.</div>
+    </li>
+</ol>
+<h2><span id="Ver_el_contenido_de_un_fichero"><a name="cont"></a>Ver el contenido de un fichero</span></h2>
+<ol>
+    <li>
+        <div><strong>cat file1</strong>: ver los contenidos de un fichero comenzando desde la primera hilera.</div>
+    </li>
+    <li>
+        <div><strong>tac file1</strong>: ver los contenidos de un fichero comenzando desde la &uacute;ltima
+            l&iacute;nea.</div>
+    </li>
+    <li>
+        <div><strong>more file1</strong>: ver el contenido a lo largo de un fichero.</div>
+    </li>
+    <li>
+        <div><strong>less file1</strong>: parecido al commando &lsquo;more&rsquo; pero permite salvar el movimiento en
+            el fichero as&iacute; como el movimiento hacia atr&aacute;s.</div>
+    </li>
+    <li>
+        <div><strong>head -2 file1</strong>: ver las dos primeras l&iacute;neas de un fichero.</div>
+    </li>
+    <li>
+        <div><strong>tail -2 file1</strong>: ver las dos &uacute;ltimas l&iacute;neas de un fichero.</div>
+    </li>
+    <li>
+        <div><strong>tail -f /var/log/messages</strong>: ver en tiempo real qu&eacute; ha sido a&ntilde;adido al
+            fichero.</div>
+    </li>
+</ol>
+<h2><span id="Manipulacion_de_texto"><a name="texto"></a>Manipulaci&oacute;n de texto</span></h2>
+<ol>
+    <li>
+        <div><strong>cat file1 file2 .. | command &lt;&gt; file1_in.txt_or_file1_out.txt</strong>: sintaxis general para
+            la manipulaci&oacute;n de texto utilizando PIPE, STDIN y STDOUT.</div>
+    </li>
+    <li>
+        <div><strong>cat file1 | command( sed, grep, awk, grep, etc&hellip;) &gt; result.txt</strong>: sintaxis general
+            para manipular un texto de un fichero y escribir el resultado en un fichero nuevo.</div>
+    </li>
+    <li>
+        <div><strong>cat file1 | command( sed, grep, awk, grep, etc&hellip;) &raquo; result.txt</strong>: sintaxis
+            general para manipular un texto de un fichero y a&ntilde;adir resultado en un fichero existente.</div>
+    </li>
+    <li>
+        <div><strong>grep Aug /var/log/messages</strong>: buscar palabras &ldquo;Aug&rdquo; en el fichero
+            &lsquo;/var/log/messages&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>grep ^Aug /var/log/messages</strong>: buscar palabras que comienzan con &ldquo;Aug&rdquo; en
+            fichero &lsquo;/var/log/messages&rsquo;</div>
+    </li>
+    <li>
+        <div><strong>grep [0-9] /var/log/messages</strong>: seleccionar todas las l&iacute;neas del fichero
+            &lsquo;/var/log/messages&rsquo; que contienen n&uacute;meros.</div>
+    </li>
+    <li>
+        <div><strong>grep Aug -R /var/log/</strong>*: buscar la cadena &ldquo;Aug&rdquo; en el directorio
+            &lsquo;/var/log&rsquo; y debajo.</div>
+    </li>
+    <li>
+        <div><strong>sed &lsquo;s/stringa1/stringa2/g&rsquo; example.txt</strong>: reubicar &ldquo;string1&rdquo; con
+            &ldquo;string2&rdquo; en ejemplo.txt</div>
+    </li>
+    <li>
+        <div><strong>sed &lsquo;/^$/d&rsquo; example.txt</strong>: eliminar todas las l&iacute;neas en blanco desde el
+            ejemplo.txt</div>
+    </li>
+    <li>
+        <div><strong>sed &lsquo;/ *#/d; /^$/d&rsquo; example.txt</strong>: eliminar comentarios y l&iacute;neas en
+            blanco de ejemplo.txt</div>
+    </li>
+    <li>
+        <div><strong>echo &lsquo;esempio&rsquo; | tr &lsquo;[:lower:]&rsquo; &lsquo;[:upper:]&rsquo;</strong>: convertir
+            min&uacute;sculas en may&uacute;sculas.</div>
+    </li>
+    <li>
+        <div><strong>sed -e &lsquo;1d&rsquo; result.txt</strong>: elimina la primera l&iacute;nea del fichero
+            ejemplo.txt</div>
+    </li>
+    <li>
+        <div><strong>sed -n &lsquo;/stringa1/p&rsquo;</strong>: visualizar solamente las l&iacute;neas que contienen la
+            palabra &ldquo;string1&rdquo;.</div>
+    </li>
+</ol>
+<h2><span id="Establecer_caracter_y_conversion_de_ficheros"><a name="estable"></a>Establecer caracter y
+        conversi&oacute;n de ficheros</span></h2>
+<ol>
+    <li>
+        <div><strong>dos2unix filedos.txt fileunix.txt</strong>: convertir un formato de fichero texto desde MSDOS a
+            UNIX.</div>
+    </li>
+    <li>
+        <div><strong>unix2dos fileunix.txt filedos.txt</strong>: convertir un formato de fichero de texto desde UNIX a
+            MSDOS.</div>
+    </li>
+    <li>
+        <div><strong>recode ..<acronym title="HyperText Markup Language">HTML</acronym> &lt; page.txt &gt;
+                page.html</strong>: convertir un fichero de texto en html.</div>
+    </li>
+    <li>
+        <div><strong>recode -l | more</strong>: mostrar todas las conversiones de formato disponibles.</div>
+    </li>
+</ol>
+<h2><span id="Analisis_del_sistema_de_ficheros"><a name="analisis"></a>An&aacute;lisis del sistema de ficheros</span>
+</h2>
+<ol>
+    <li>
+        <div><strong>badblocks -v /dev/hda1</strong>: Chequear los bloques defectuosos en el disco hda1.</div>
+    </li>
+    <li>
+        <div><strong>fsck /dev/hda1</strong>: reparar / chequear la integridad del fichero del sistema Linux en el disco
+            hda1.</div>
+    </li>
+    <li>
+        <div><strong>fsck.ext2 /dev/hda1</strong>: reparar / chequear la integridad del fichero del sistema ext 2 en el
+            disco hda1.</div>
+    </li>
+    <li>
+        <div><strong>e2fsck /dev/hda1</strong>: reparar / chequear la integridad del fichero del sistema ext 2 en el
+            disco hda1.</div>
+    </li>
+    <li>
+        <div><strong>e2fsck -j /dev/hda1</strong>: reparar / chequear la integridad del fichero del sistema ext 3 en el
+            disco hda1.</div>
+    </li>
+    <li>
+        <div><strong>fsck.ext3 /dev/hda1</strong>: reparar / chequear la integridad del fichero del sistema ext 3 en el
+            disco hda1.</div>
+    </li>
+    <li>
+        <div><strong>fsck.vfat /dev/hda1</strong>: reparar / chequear la integridad del fichero sistema fat en el disco
+            hda1.</div>
+    </li>
+    <li>
+        <div><strong>fsck.msdos /dev/hda1</strong>: reparar / chequear la integridad de un fichero del sistema dos en el
+            disco hda1.</div>
+    </li>
+    <li>
+        <div><strong>dosfsck /dev/hda1</strong>: reparar / chequear la integridad de un fichero del sistema dos en el
+            disco hda1.</div>
+    </li>
+</ol>
+<h2><span id="Formatear_un_sistema_de_ficheros"><a name="format"></a>Formatear un sistema de ficheros</span></h2>
+<ol>
+    <li>
+        <div><strong>mkfs /dev/hda1</strong>: crear un fichero de sistema tipo Linux en la partici&oacute;n hda1.</div>
+    </li>
+    <li>
+        <div><strong>mke2fs /dev/hda1</strong>: crear un fichero de sistema tipo Linux ext 2 en hda1.</div>
+    </li>
+    <li>
+        <div><strong>mke2fs -j /dev/hda1</strong>: crear un fichero de sistema tipo Linux ext3 (peri&oacute;dico) en la
+            partici&oacute;n hda1.</div>
+    </li>
+    <li>
+        <div><strong>mkfs -t vfat 32 -F /dev/hda1</strong>: crear un fichero de sistema FAT32 en hda1.</div>
+    </li>
+    <li>
+        <div><strong>fdformat -n /dev/fd0</strong>: formatear un disco flooply.</div>
+    </li>
+    <li>
+        <div><strong>mkswap /dev/hda3</strong>: crear un fichero de sistema swap.</div>
+    </li>
+</ol>
+<h2><span id="Trabajo_con_la_SWAP"><a name="swap"></a>Trabajo con la SWAP</span></h2>
+<ol>
+    <li>
+        <div><strong>mkswap /dev/hda3</strong>: crear fichero de sistema swap.</div>
+    </li>
+    <li>
+        <div><strong>swapon /dev/hda3</strong>: activando una nueva partici&oacute;n swap.</div>
+    </li>
+    <li>
+        <div><strong>swapon /dev/hda2 /dev/hdb3</strong>: activar dos particiones swap.</div>
+    </li>
+</ol>
+<h2><span id="Salvas_Backup"><a name="backup"></a>Salvas (Backup)</span></h2>
+<ol>
+    <li>
+        <div><strong>dump -0aj -f /tmp/home0.bak /home</strong>: hacer una salva completa del directorio
+            &lsquo;/home&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>dump -1aj -f /tmp/home0.bak /home</strong>: hacer una salva incremental del directorio
+            &lsquo;/home&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>restore -if /tmp/home0.bak</strong>: restaurando una salva interactivamente.</div>
+    </li>
+    <li>
+        <div><strong>rsync -rogpav &ndash;delete /home /tmp</strong>: sincronizaci&oacute;n entre directorios.</div>
+    </li>
+    <li>
+        <div><strong>rsync -rogpav -e ssh &ndash;delete /home ip_address:/tmp</strong>: rsync a trav&eacute;s del
+            t&uacute;nel <acronym title="Secure Shell">SSH</acronym>.</div>
+    </li>
+    <li>
+        <div><strong>rsync -az -e ssh &ndash;delete ip_addr:/home/public /home/local</strong>: sincronizar un directorio
+            local con un directorio remoto a trav&eacute;s de ssh y de compresi&oacute;n.</div>
+    </li>
+    <li>
+        <div><strong>rsync -az -e ssh &ndash;delete /home/local ip_addr:/home/public</strong>: sincronizar un directorio
+            remoto con un directorio local a trav&eacute;s de ssh y de compresi&oacute;n.</div>
+    </li>
+    <li>
+        <div><strong>dd bs=1M if=/dev/hda | gzip | ssh user@ip_addr &lsquo;dd of=hda.gz&rsquo;</strong>: hacer una salva
+            de un disco duro en un host remoto a trav&eacute;s de ssh.</div>
+    </li>
+    <li>
+        <div><strong>dd if=/dev/sda of=/tmp/file1</strong>: salvar el contenido de un disco duro a un fichero. (En este
+            caso el disco duro es &ldquo;sda&rdquo; y el fichero &ldquo;file1&rdquo;).</div>
+    </li>
+    <li>
+        <div><strong>tar -Puf backup.tar /home/user</strong>: hacer una salva incremental del directorio
+            &lsquo;/home/user&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>( cd /tmp/local/ &amp;&amp; tar c . ) | ssh -C user@ip_addr &lsquo;cd /home/share/ &amp;&amp; tar x
+                -p&rsquo;</strong>: copiar el contenido de un directorio en un directorio remoto a trav&eacute;s de ssh.
+        </div>
+    </li>
+    <li>
+        <div><strong>( tar c /home ) | ssh -C user@ip_addr &lsquo;cd /home/backup-home &amp;&amp; tar x
+                -p&rsquo;</strong>: copiar un directorio local en un directorio remoto a trav&eacute;s de ssh.</div>
+    </li>
+    <li>
+        <div><strong>tar cf &ndash; . | (cd /tmp/backup ; tar xf &ndash; )</strong>: copia local conservando las
+            licencias y enlaces desde un directorio a otro.</div>
+    </li>
+    <li>
+        <div><strong>find /home/user1 -name &lsquo;*.txt&rsquo; | xargs cp -av &ndash;target-directory=/home/backup/
+                &ndash;parents</strong>: encontrar y copiar todos los ficheros con extensi&oacute;n &lsquo;.txt&rsquo;
+            de un directorio a otro.</div>
+    </li>
+    <li>
+        <div><strong>find /var/log -name &lsquo;*.log&rsquo; | tar cv &ndash;files-from=- | bzip2 &gt;
+                log.tar.bz2</strong>: encontrar todos los ficheros con extensi&oacute;n &lsquo;.log&rsquo; y hacer un
+            archivo bzip.</div>
+    </li>
+    <li>
+        <div><strong>dd if=/dev/hda of=/dev/fd0 bs=512 count=1</strong>: hacer una copia del MRB (Master Boot Record) a
+            un disco floppy.</div>
+    </li>
+    <li>
+        <div><strong>dd if=/dev/fd0 of=/dev/hda bs=512 count=1</strong>: restaurar la copia del MBR (Master Boot Record)
+            salvada en un floppy.</div>
+    </li>
+</ol>
+<h2><span id="CD-ROM"><a name="cdrom"></a>CD-ROM</span></h2>
+<ol>
+    <li>
+        <div><strong>cdrecord -v gracetime=2 dev=/dev/cdrom -eject blank=fast -force</strong>: limpiar o borrar un cd
+            regrabable.</div>
+    </li>
+    <li>
+        <div><strong>mkisofs /dev/cdrom &gt; cd.iso</strong>: crear una imagen iso de cdrom en disco.</div>
+    </li>
+    <li>
+        <div><strong>mkisofs /dev/cdrom | gzip &gt; cd_iso.gz</strong>: crear una imagen comprimida iso de cdrom en
+            disco.</div>
+    </li>
+    <li>
+        <div><strong>mkisofs -J -allow-leading-dots -R -V &ldquo;Label CD&rdquo; -iso-level 4 -o ./cd.iso
+                data_cd</strong>: crear una imagen iso de un directorio.</div>
+    </li>
+    <li>
+        <div><strong>cdrecord -v dev=/dev/cdrom cd.iso</strong>: quemar una imagen iso.</div>
+    </li>
+    <li>
+        <div><strong>gzip -dc cd_iso.gz | cdrecord dev=/dev/cdrom &ndash;</strong>: quemar una imagen iso comprimida.
+        </div>
+    </li>
+    <li>
+        <div><strong>mount -o loop cd.iso /mnt/iso</strong>: montar una imagen iso.</div>
+    </li>
+    <li>
+        <div><strong>cd-paranoia -B</strong>: llevar canciones de un cd a ficheros wav.</div>
+    </li>
+    <li>
+        <div><strong>cd-paranoia &ndash; &rdquo;-3&rdquo;</strong>: llevar las 3 primeras canciones de un cd a ficheros
+            wav.</div>
+    </li>
+    <li>
+        <div><strong>cdrecord &ndash;scanbus</strong>: escanear bus para identificar el canal scsi.</div>
+    </li>
+    <li>
+        <div><strong>dd if=/dev/hdc | md5sum</strong>: hacer funcionar un md5sum en un dispositivo, como un CD.</div>
+    </li>
+</ol>
+<h2><span id="Trabajo_con_la_RED_LAN_y_Wi-Fi"><a name="red"></a>Trabajo con la RED ( <acronym title="Local Area Network">LAN</acronym> y Wi-Fi)</span></h2>
+<ol>
+    <li>
+        <div><strong>ifconfig eth0</strong>: mostrar la configuraci&oacute;n de una tarjeta de red Ethernet.</div>
+    </li>
+    <li>
+        <div><strong>ifup eth0</strong>: activar una interface &lsquo;eth0&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>ifdown eth0</strong>: deshabilitar una interface &lsquo;eth0&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>ifconfig eth0 192.168.1.1 netmask 255.255.255.0</strong>: configurar una direcci&oacute;n IP.</div>
+    </li>
+    <li>
+        <div><strong>ifconfig eth0 promisc</strong>: configurar &lsquo;eth0&rsquo;en modo com&uacute;n para obtener los
+            paquetes (sniffing).</div>
+    </li>
+    <li>
+        <div><strong>dhclient eth0</strong>: activar la interface &lsquo;eth0&rsquo; en modo dhcp.</div>
+    </li>
+    <li>
+        <div><strong>route -n</strong>: mostrar mesa de recorrido.</div>
+    </li>
+    <li>
+        <div><strong>route add -net 0/0 gw IP_Gateway</strong>: configurar entrada predeterminada.</div>
+    </li>
+    <li>
+        <div><strong>route add -net 192.168.0.0 netmask 255.255.0.0 gw 192.168.1.1</strong>: configurar ruta
+            est&aacute;tica para buscar la red &lsquo;192.168.0.0/16&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>route del 0/0 gw IP_gateway</strong>: eliminar la ruta est&aacute;tica.</div>
+    </li>
+    <li>
+        <div><strong>echo &ldquo;1&rdquo; &gt; /proc/sys/net/ipv4/ip_forward</strong>: activar el recorrido ip.</div>
+    </li>
+    <li>
+        <div><strong>hostname</strong>: mostrar el nombre del host del sistema.</div>
+    </li>
+    <li>
+        <div><strong>host <a title="http://www.example.com" href="http://www.example.com/" rel="nofollow" class="external">www.example.com</a></strong>: buscar el nombre del host para resolver el nombre a
+            una direcci&oacute;n ip(1).</div>
+    </li>
+    <li>
+        <div><strong>nslookup <a title="http://www.example.com" href="http://www.example.com/" rel="nofollow" class="external">www.example.com</a></strong>: buscar el nombre del host para resolver el nombre a
+            una direcci&oacute;m ip y viceversa(2).</div>
+    </li>
+    <li>
+        <div><strong>ip link show</strong>: mostar el estado de enlace de todas las interfaces.</div>
+    </li>
+    <li>
+        <div><strong>mii-tool eth0</strong>: mostar el estado de enlace de &lsquo;eth0&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>ethtool eth0</strong>: mostrar las estad&iacute;sticas de tarjeta de red &lsquo;eth0&rsquo;.</div>
+    </li>
+    <li>
+        <div><strong>netstat -tup</strong>: mostrar todas las conexiones de red activas y sus PID.</div>
+    </li>
+    <li>
+        <div><strong>netstat -tupl</strong>: mostrar todos los servicios de escucha de red en el sistema y sus PID.
+        </div>
+    </li>
+    <li>
+        <div><strong>tcpdump tcp port 80</strong>: mostrar todo el tr&aacute;fico <acronym title="Hyper Text Transfer Protocol">HTTP</acronym>.</div>
+    </li>
+    <li>
+        <div><strong>iwlist scan</strong>: mostrar las redes inal&aacute;mbricas.</div>
+    </li>
+    <li>
+        <div><strong>iwconfig eth1</strong>: mostrar la configuraci&oacute;n de una tarjeta de red inal&aacute;mbrica.
+        </div>
+    </li>
+    <li>
+        <div><strong>whois <a title="http://www.example.com" href="http://www.example.com/" rel="nofollow" class="external">www.example.com</a></strong>: buscar en base de datos Whois.</div>
+    </li>
+</ol>
+<h2><span id="Redes_de_Microsoft_Windows_SAMBA"><a name="samba"></a>Redes de Microsoft Windows (SAMBA)</span></h2>
+<ol>
+    <li>
+        <div><strong>nbtscan ip_addr</strong>: resoluci&oacute;n de nombre de red bios.</div>
+    </li>
+    <li>
+        <div><strong>nmblookup -A ip_addr</strong>: resoluci&oacute;n de nombre de red bios.</div>
+    </li>
+    <li>
+        <div><strong>smbclient -L ip_addr/hostname</strong>: mostrar acciones remotas de un host en windows.</div>
+    </li>
+</ol>
+<h2><span id="Tablas_IP_CORTAFUEGOS"><a name="iptable"></a>Tablas IP (CORTAFUEGOS)</span></h2>
+<ol>
+    <li>
+        <div><strong>iptables -t filter -L</strong>: mostrar todas las cadenas de la tabla de filtro.</div>
+    </li>
+    <li>
+        <div><strong>iptables -t nat -L</strong>: mostrar todas las cadenas de la tabla nat.</div>
+    </li>
+    <li>
+        <div><strong>iptables -t filter -F</strong>: limpiar todas las reglas de la tabla de filtro.</div>
+    </li>
+    <li>
+        <div><strong>iptables -t nat -F</strong>: limpiar todas las reglas de la tabla nat.</div>
+    </li>
+    <li>
+        <div><strong>iptables -t filter -X</strong>: borrar cualquier cadena creada por el usuario.</div>
+    </li>
+    <li>
+        <div><strong>iptables -t filter -A INPUT -p tcp &ndash;dport telnet -j ACCEPT</strong>: permitir las conexiones
+            telnet para entar.</div>
+    </li>
+    <li>
+        <div><strong>iptables -t filter -A OUTPUT -p tcp &ndash;dport http -j DROP</strong>: bloquear las conexiones
+            <acronym title="Hyper Text Transfer Protocol">HTTP</acronym> para salir.</div>
+    </li>
+    <li>
+        <div><strong>iptables -t filter -A FORWARD -p tcp &ndash;dport pop3 -j ACCEPT</strong>: permitir las conexiones
+            <acronym title="Post Office Protocol">POP</acronym> a una cadena delantera.</div>
+    </li>
+    <li>
+        <div><strong>iptables -t filter -A INPUT -j LOG &ndash;log-prefix &ldquo;DROP INPUT&rdquo;</strong>: registrando
+            una cadena de entrada.</div>
+    </li>
+    <li>
+        <div><strong>iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</strong>: configurar un PAT (Puerto de
+            traducci&oacute;n de direcci&oacute;n) en eth0, ocultando los paquetes de salida forzada.</div>
+    </li>
+    <li>
+        <div><strong>iptables -t nat -A PREROUTING -d 192.168.0.1 -p tcp -m tcp &ndash;dport 22 -j DNAT
+                &ndash;to-destination 10.0.0.2:22</strong>: redireccionar los paquetes diriguidos de un host a otro.
+        </div>
+    </li>
+</ol>
+<h2><span id="Monitoreando_y_depurando"><a name="monitor"></a>Monitoreando y depurando</span></h2>
+<ol>
+    <li>
+        <div><strong>top</strong>: mostrar las tareas de linux usando la mayor&iacute;a cpu.</div>
+    </li>
+    <li>
+        <div><strong>ps -eafw</strong>: muestra las tareas Linux.</div>
+    </li>
+    <li>
+        <div><strong>ps -e -o pid,args &ndash;forest</strong>: muestra las tareas Linux en un modo jer&aacute;rquico.
+        </div>
+    </li>
+    <li>
+        <div><strong>pstree</strong>: mostrar un &aacute;rbol sistema de procesos.</div>
+    </li>
+    <li>
+        <div><strong>kill -9 ID_Processo</strong>: forzar el cierre de un proceso y terminarlo.</div>
+    </li>
+    <li>
+        <div><strong>kill -1 ID_Processo</strong>: forzar un proceso para recargar la configuraci&oacute;n.</div>
+    </li>
+    <li>
+        <div><strong>lsof -p $$</strong>: mostrar una lista de ficheros abiertos por procesos.</div>
+    </li>
+    <li>
+        <div><strong>lsof /home/user1</strong>: muestra una lista de ficheros abiertos en un camino dado del sistema.
+        </div>
+    </li>
+    <li>
+        <div><strong>strace -c ls &gt;/dev/null</strong>: mostrar las llamadas del sistema hechas y recibidas por un
+            proceso.</div>
+    </li>
+    <li>
+        <div><strong>strace -f -e open ls &gt;/dev/null</strong>: mostrar las llamadas a la biblioteca.</div>
+    </li>
+    <li>
+        <div><strong>watch -n1 &lsquo;cat /proc/interrupts&rsquo;</strong>: mostrar interrupciones en tiempo real.</div>
+    </li>
+    <li>
+        <div><strong>last reboot</strong>: mostrar historial de reinicio.</div>
+    </li>
+    <li>
+        <div><strong>lsmod</strong>: mostrar el kernel cargado.</div>
+    </li>
+    <li>
+        <div><strong>free -m</strong>: muestra el estado de la RAM en megabytes.</div>
+    </li>
+    <li>
+        <div><strong>smartctl -A /dev/hda</strong>: monitorear la fiabilidad de un disco duro a trav&eacute;s de SMART.
+        </div>
+    </li>
+    <li>
+        <div><strong>smartctl -i /dev/hda</strong>: chequear si SMART est&aacute; activado en un disco duro.</div>
+    </li>
+    <li>
+        <div><strong>tail /var/log/dmesg</strong>: mostrar eventos inherentes al proceso de carga del kernel.</div>
+    </li>
+    <li>
+        <div><strong>tail /var/log/messages</strong>: mostrar los eventos del sistema.</div>
+    </li>
+</ol>
+<h2><span id="Otros_comandos_utiles"><a name="otros"></a>Otros comandos &uacute;tiles</span></h2>
+<ol>
+    <li>
+        <div><strong>apropos &hellip;keyword</strong>: mostrar una lista de comandos que pertenecen a las palabras
+            claves de un programa; son &uacute;tiles cuando t&uacute; sabes qu&eacute; hace tu programa, pero de
+            sconoces el nombre del comando.</div>
+    </li>
+    <li>
+        <div><strong>man ping</strong>: mostrar las p&aacute;ginas del manual on-line; por ejemplo, en un comando ping,
+            usar la opci&oacute;n &lsquo;-k&rsquo; para encontrar cualquier comando relacionado.</div>
+    </li>
+    <li>
+        <div><strong>whatis &hellip;keyword</strong>: muestra la descripci&oacute;n de lo que hace el programa.</div>
+    </li>
+    <li>
+        <div><strong>mkbootdisk &ndash;device /dev/fd0 `uname -r`</strong>: crear un floppy boteable.</div>
+    </li>
+    <li>
+        <div><strong>gpg -c file1</strong>: codificar un fichero con guardia de seguridad GNU.</div>
+    </li>
+    <li>
+        <div><strong>gpg file1.gpg</strong>: decodificar un fichero con Guardia de seguridad GNU.</div>
+    </li>
+    <li>
+        <div><strong>wget -r <a title="http://www.example.com" href="http://www.example.com/" rel="nofollow" class="external">www.example.com</a></strong>: descargar un sitio web completo.</div>
+    </li>
+    <li>
+        <div><strong>wget -c <a title="http://www.example.com/file.iso" href="http://www.example.com/file.iso" rel="nofollow" class="external">www.example.com/file.iso</a></strong>: descargar un fichero con la
+            posibilidad de parar la descargar y reanudar m&aacute;s tarde.</div>
+    </li>
+    <li>
+        <div><strong>echo &lsquo;wget -c <a title="http://www.example.com/files.iso" href="http://www.example.com/files.iso" rel="nofollow" class="external">www.example.com/files.iso</a>&lsquo; | at 09:00</strong>: Comenzar una descarga a
+            cualquier hora. En este caso empezar&iacute;a a las 9 horas.</div>
+    </li>
+    <li>
+        <div><strong>ldd /usr/bin/ssh</strong>: mostrar las bibliotecas compartidas requeridas por el programa ssh.
+        </div>
+    </li>
+    <li>
+        <div><strong>alias hh=&rsquo;history&rsquo;</strong>: colocar un alias para un commando &ndash;hh= Historial.
+        </div>
+    </li>
+    <li>
+        <div><strong>chsh</strong>: cambiar el comando Shell.</div>
+    </li>
+    <li>
+        <div><strong>chsh &ndash;list-shells</strong>: es un comando adecuado para saber si tienes que hacer remoto en
+            otra terminal.</div>
+    </li>
+    <li>
+        <div><strong>who -a</strong>: mostrar quien est&aacute; registrado, e imprimir hora del &uacute;ltimo sistema de
+            importaci&oacute;n, procesos muertos, procesos de registro de sistema, procesos activos producidos por init,
+            funcionamiento actual y &uacute;ltimos cambios del reloj del sistema.</div>
+    </li>
+</ol>
+
